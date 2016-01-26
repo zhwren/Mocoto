@@ -1,0 +1,24 @@
+/control/verbose 2
+/run/verbose 2
+
+/det/flatpanel 0
+/det/tubdetector 0
+/det/detector/Number 0
+/det/collimator/Number 0
+/det/target/diameter 20 cm
+/det/target/position 0 0 0 cm
+/det/target/rotateAngle 0 deg
+
+/det/Apron/Copper/thickness 1 m
+/det/Apron/Wolfram/thickness 0 mm
+/det/Apron/Aluminum/thickness 0 mm
+
+/gen/particle gamma
+/gen/particle/energy 1 MeV
+
+/gen/particle/position -24 0 0 cm
+/gen/particle/momentumDirection 0 90 0 deg
+/gen/particle/deltaThetaPhi 0 0 40 deg
+
+/run/initialize
+/control/execute vis.mac

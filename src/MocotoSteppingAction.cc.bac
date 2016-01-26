@@ -1,0 +1,213 @@
+ /***********************************************************
+ *                         _ooOoo_                          *
+ *                        o8888888o                         *
+ *                        88" . "88                         *
+ *                        (| -_- |)                         *
+ *                         O\ = /O                          *
+ *                     ____/`---'\____                      *
+ *                   .   ' \\| |// `.                       *
+ *                    / \\||| : |||// \                     *
+ *                  / _||||| -:- |||||- \                   *
+ *                    | | \\\ - /// | |                     *
+ *                  | \_| ''\---/'' | |                     *
+ *                   \ .-\__ `-` ___/-. /                   *
+ *                ___`. .' /--.--\ `. . __                  *
+ *             ."" '< `.____<|>_/___.' >'"".                *
+ *            | | : `- \`.;` _ /`;.`/ - ` : | |             *
+ *              \ \ `-. \_ __\ /__ _/ .-` / /               *
+ *      ======`-.____`-.___\_____/___.-`____.-'======       *
+ *                         `=---='                          *
+ *                                                          *
+ *      .............................................       *
+ *             Buddha bless me, No bug forever              *
+ *                                                          *
+ ************************************************************
+ * Author       : ZhuHaiWen                                 *
+ * Email        : zhuhw@ihep.ac.cn/zhwren0211@whu.edu.cn    *
+ * Last modified: 2015-07-14 14:40
+ * Filename     : MocotoSteppingAction.cc
+ * Phone Number : 18627814293                               *
+ * Discription  :                                           *
+ ***********************************************************/
+
+#include "G4ios.hh"
+#include "MocotoSteppingAction.hh"
+#include "MocotoAnalysisManager.hh"
+#include "G4Track.hh"
+#include "globals.hh"
+#include "G4SteppingManager.hh"
+#include "G4UImanager.hh"
+using std::string;
+using namespace CLHEP;
+
+MocotoSteppingAction::MocotoSteppingAction()
+{
+  attachApron = false;
+  attachTarget = false;
+  targetReflected = false;
+  analysis = MocotoAnalysisManager::getInstance();
+}
+
+MocotoSteppingAction::~MocotoSteppingAction()
+{}
+
+void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
+{
+  fTrack = fStep->GetTrack();
+  G4String volumeName = fTrack->GetVolume()->GetName();
+  process = fStep->GetPostStepPoint()->GetProcessDefinedStep();
+  position = fTrack->GetPosition();
+//  G4cout << "PreStepPoint : " << position << G4endl;
+//  G4cout << "CurrentPoint : " << fTrack->GetPosition() << G4endl;
+//  G4cout << "PostStepPoint: " << fStep->GetPostStepPoint()->GetPosition() << G4endl;
+  if( fTrack->GetNextVolume() ) 
+    nextVolumeName = fTrack->GetNextVolume()->GetName();
+  particleName = fTrack->GetParticleDefinition()->GetParticleName();
+//  if( volumeName!="pCrystal" && particleName!="gamma")
+//  {
+//    fTrack->SetTrackStatus(fStopAndKill);
+//    return;
+//  }
+
+//  if( volumeName!="pCrystal" && nextVolumeName=="pCrystal")
+//    analysis->SetAttachEnergy( fTrack->GetKineticEnergy() );
+
+  if( volumeName == "pWorld" ) WorldSteppingAction( fStep );
+//  else if( volumeName == "pDetector") DetectorSteppingAction( fStep );
+  else if( volumeName == "pCrystal" ) CrystalSteppingAction( fStep  );
+//  else if( volumeName.find("pApron") !=string::npos ) ApronSteppingAction( fStep );
+  else if( volumeName.find("pTarget")!=string::npos ) TargetSteppingAction(fStep );
+//  else if( volumeName == "pPOLYE" ) POLYESteppingAction( fStep );
+//  else if( volumeName == "pPb" ) PbSteppingAction( fStep );
+}
+
+void MocotoSteppingAction::WorldSteppingAction(const G4Step* fStep )
+{
+//  G4ThreeVector direction = fStep->GetPreStepPoint()->GetMomentumDirection();
+  if( process ) analysis->SetProcess( process->GetProcessName() );
+//  if( !targetReflected && attachApron && direction.x() < 0 )
+//    analysis->SetApronReflected( fTrack->GetKineticEnergy() );
+//  
+//  if( fTrack->GetParentID()==0&&direction.x() < 0 )
+//  {
+//    analysis->SetTargetReflected( fTrack->GetKineticEnergy() );
+////    fTrack->SetTrackStatus( fStopAndKill );
+//  //  G4cout << "Reflected" << G4endl;
+//  }
+//  //......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+//  if( !fTrack->GetNextVolume() ) analysis->SetEnergyOut( fTrack->GetKineticEnergy() );
+//  //......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+//  if( fTrack->GetParentID()==0&&position.x() >-40*mm && direction.x() > 0 )
+//  {
+//    analysis->SetThoughEnergy( fTrack->GetKineticEnergy() );
+//  //  fTrack->SetTrackStatus( fStopAndKill );
+//  //  G4cout << "Transmission" << G4endl;
+//  }
+//  //......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+//  if( particleName=="gamma" && fTrack->GetParentID()!=0 )
+//  {
+//    analysis->SetCreateGamma(fTrack->GetKineticEnergy(),
+//	                     fStep->GetPreStepPoint()->GetMomentumDirection() );
+//    fTrack->SetTrackStatus( fStopAndKill );
+//  }
+}
+
+//......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+// Stepping in Detector Module
+void MocotoSteppingAction::DetectorSteppingAction(const G4Step* fStep )
+{
+  if( fStep->IsFirstStepInVolume() )
+    G4cout << "First Step In Detector" << G4endl;
+}
+
+//......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+// Stepping in Crystal
+void MocotoSteppingAction::CrystalSteppingAction(const G4Step* fStep )
+{
+  analysis->SetifFill( true );
+//  analysis->SetEnergyDetected( fStep->GetTotalEnergyDeposit() );
+//  analysis->SetCrystalCopyNO( fTrack );
+  G4int column = fTrack->GetTouchable()->GetCopyNumber(0);
+  G4int row    = fTrack->GetTouchable()->GetCopyNumber(1);
+  if( particleName != "gamma" )
+    return;
+  if( fStep->IsFirstStepInVolume() )
+  {
+    G4cout << "Hit Crystal    : " << fTrack->GetCurrentStepNumber() << " " << position << G4endl;
+    analysis->HitCrystal( column+row, fTrack->GetKineticEnergy() );
+  }
+
+  if( fStep->IsLastStepInVolume() )
+  {
+    G4ThreeVector postPosition = fStep->GetPostStepPoint()->GetPosition();
+    G4double postEnergy = fStep->GetPostStepPoint()->GetKineticEnergy();
+    G4cout << "Escape Crystal : " << postPosition << G4endl;
+    analysis->EscapeCrystal( column+row, fTrack->GetKineticEnergy(), position);
+  }
+}
+
+//......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+// Steppint in Apron
+void MocotoSteppingAction::ApronSteppingAction(const G4Step* fStep )
+{
+  analysis->SetifFill( true );
+  attachApron = true;
+  if( process )
+    analysis->SetProcess( process->GetProcessName() );
+  ApronTranslation = fStep->GetTrack()->GetVolume()->GetTranslation();
+  analysis->SetEnergyDepositInWorfarm( fStep->GetTotalEnergyDeposit(),position);
+  if( process ) analysis->SetProcess( process->GetProcessName() );
+}
+
+//......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......oooOO0OOooo......
+// Stepping Actions In Target 
+//
+void MocotoSteppingAction::TargetSteppingAction(const G4Step* fStep )
+{
+  attachTarget = true;
+  if( process )
+  {
+    analysis->SetProcess( process->GetProcessName() );
+//    if( process->GetProcessName()=="phot" && fTrack->GetParentID()==0 )
+//      analysis->SetDeathInTarget(1);
+  }
+//  analysis->SetEnergyDeposit( fStep->GetTotalEnergyDeposit() );
+}
+
+void MocotoSteppingAction::POLYESteppingAction(const G4Step* fStep)
+{
+  attachTarget = true;
+  analysis->SetEnergyDeposit( fStep->GetTotalEnergyDeposit() );
+  if( fTrack->GetParentID() == 0 && !fTrack->GetNextVolume() )
+  {
+    analysis->SetDeathInTarget(1);
+ //   G4cout << "DeathInPOLYE" << G4endl;
+  }
+  if(process)
+  {
+    if(process->GetProcessName()=="phot" && fTrack->GetParentID()==0)
+    {
+      analysis->SetDeathInTarget(1);
+ //     G4cout << "DeathInPOLYE" << G4endl;
+    }
+  }
+}
+
+void MocotoSteppingAction::PbSteppingAction(const G4Step* fStep)
+{
+  attachTarget = true;
+  analysis->SetEnergyApron( fStep->GetTotalEnergyDeposit() );
+  if( fTrack->GetParentID() == 0 && !fTrack->GetNextVolume() )
+  {
+    analysis->SetDeathInTarget(10);
+ //   G4cout << "DeathInPb" << G4endl;
+  }
+  if( process )
+  {
+    if(process->GetProcessName()=="phot" && fTrack->GetParentID()==0)
+    {
+      analysis->SetDeathInTarget(10);
+   //   G4cout << "DeathInPb" << G4endl;
+    }
+  }
+}
