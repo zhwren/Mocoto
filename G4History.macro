@@ -1,0 +1,46 @@
+/run/verbose 2
+/det/flatpanel 0
+/det/tubdetector 0
+/det/detector/Number 1
+/det/collimator/Number 3
+/det/target/diameter 0 cm
+/det/Apron/Copper/thickness 0 mm
+/det/Apron/Wolfram/thickness 0 cm
+/det/Apron/Aluminum/thickness 0 mm
+/gen/particle/name e-
+/gen/particle/energy 100
+/gen/particle/position 1 1 1 cm
+/gen/particle/direction/ThetaPhi 0 90 0 deg
+/gen/particle/direction/deltaThetaPhi 0 0 0 deg
+/gen/particle/rootfile 0
+/gen/particle/rootfile/name /home/zhwren/workfs/Mocoto/test.root
+/run/initialize
+/control/execute vis.mac
+/vis/open OGL
+/vis/sceneHandler/create OGL
+/vis/viewer/create ! ! 600
+/vis/viewer/refresh
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/viewer/set/viewpointThetaPhi 90. 180.
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world
+/vis/sceneHandler/attach
+/vis/viewer/zoom 1
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/scene/notifyHandlers
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/scene/notifyHandlers scene-0
+/tracking/storeTrajectory 3
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
+/vis/verbose warnings
