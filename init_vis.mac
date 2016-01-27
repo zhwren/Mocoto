@@ -6,7 +6,7 @@
 /det/detector/Number 0
 /det/collimator/Number 0
 /det/target/diameter 20 cm
-/det/target/position 0 0 0 cm
+/det/target/position 0 1 0 mm
 /det/target/rotateAngle 0 deg
 
 /det/Apron/Copper/thickness 1 m

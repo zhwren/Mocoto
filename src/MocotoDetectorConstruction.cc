@@ -147,7 +147,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
 
 //  solidTarget = new G4Box("sTarget", target_radius, 40*cm,40*cm);
 //  Air hole
-  solidTarget = new G4Tubs("sTarget", 0, 1*cm, 5.*cm, 0, 360.*deg);
+  solidTarget = new G4Tubs("sTarget", 0, 3*mm, 5.*cm, 0, 360.*deg);
   logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(-5*cm,0,0),
@@ -169,6 +169,17 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
 				  false,
 				  0);
   TargetVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
+  logicTarget->SetVisAttributes( TargetVisAtt );
+//  Fe Tube
+  logicTarget = new G4LogicalVolume(solidTarget, matIron, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(0,5*cm,0),
+				  logicTarget,
+				  "pTarget",
+				  logicTargetHolder,
+				  false,
+				  0);
+  TargetVisAtt = new G4VisAttributes( G4Colour(1., 0., 1.) );
   logicTarget->SetVisAttributes( TargetVisAtt );
 
   return physiTargetHolder;
