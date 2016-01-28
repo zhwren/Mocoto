@@ -59,7 +59,7 @@ MocotoPrimaryGeneratorAction::MocotoPrimaryGeneratorAction()
   fParticleGun = new G4ParticleGun( nofParticles );
   particleTable = G4ParticleTable::GetParticleTable();
   messenger = new MocotoPrimaryGeneratorMessenger(this);
-  file = new TFile("/home/zhwren/Workfs/Mocoto/Job/xray_200keVelectron.root");
+  file = new TFile("/home/zhwren/Workfs/Mocoto/Job/xray_120keV_1mmAluminum.root");
 }
 
 MocotoPrimaryGeneratorAction::~MocotoPrimaryGeneratorAction()
