@@ -151,7 +151,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
 //  solidTarget = new G4Box("sTarget", target_radius, 40*cm,40*cm);
 //  Air hole
   solidTarget = new G4Tubs("sTarget", 0, 5*mm, 2.*cm, 0, 360.*deg);
-  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
+  logicTarget = new G4LogicalVolume(solidTarget, matBoneCompact, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(-5*cm,0,0),
 		                  logicTarget,
