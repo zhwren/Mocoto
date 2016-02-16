@@ -94,6 +94,9 @@ void MocotoDetectorConstruction::DefineMaterials()
   matTi = man->FindOrBuildMaterial("G4_Ti",isotopes);
   matPb = man->FindOrBuildMaterial("G4_Pb",isotopes);
   matPOLYETHYLENE = man->FindOrBuildMaterial("G4_POLYETHYLENE",isotopes);
+  matBoneCompact = man->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU",isotopes);
+  matBoneCortical = man->FindOrBuildMaterial("G4_BONE_CORTICAL_ICRP",isotopes);
+  matBrain = man->FindOrBuildMaterial("G4_BRAIN_ICRP",isotopes);
 }
 
 G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
@@ -132,7 +135,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
   G4double target_radius = target_d/2.0;
   solidTargetHolder = new G4Tubs("sTargetHolder", 0, target_radius, 5.*cm, 0, 360.*deg);
 //  solidTargetHolder = new G4Box("sTargetHolder", target_radius, 40.1*cm ,40.1*cm);
-  logicTargetHolder = new G4LogicalVolume(solidTargetHolder, matWater, "lTargetHolder");
+  logicTargetHolder = new G4LogicalVolume(solidTargetHolder, matBrain, "lTargetHolder");
   G4RotationMatrix *rot = new G4RotationMatrix();
   rot->rotateZ(targetRotate);
   physiTargetHolder = new G4PVPlacement(rot,
@@ -147,7 +150,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
 
 //  solidTarget = new G4Box("sTarget", target_radius, 40*cm,40*cm);
 //  Air hole
-  solidTarget = new G4Tubs("sTarget", 0, 2*mm, 5.*cm, 0, 360.*deg);
+  solidTarget = new G4Tubs("sTarget", 0, 5*mm, 2.*cm, 0, 360.*deg);
   logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(-5*cm,0,0),
@@ -160,7 +163,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
   TargetVisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( TargetVisAtt );
 //  Al Tube
-  logicTarget = new G4LogicalVolume(solidTarget, matAl, "lTarget");
+  logicTarget = new G4LogicalVolume(solidTarget, matBoneCortical, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(5*cm,0,0),
 				  logicTarget,
@@ -171,7 +174,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
   TargetVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
   logicTarget->SetVisAttributes( TargetVisAtt );
 //  Fe Tube
-  logicTarget = new G4LogicalVolume(solidTarget, matIron, "lTarget");
+  logicTarget = new G4LogicalVolume(solidTarget, matBoneCompact, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(0,5*cm,0),
 				  logicTarget,
@@ -271,7 +274,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
   G4Box* solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.8845*0.5*mm, 1.915*0.5*mm);
   G4LogicalVolume* logicStrip = new G4LogicalVolume(solidStrip, matCsI,"lStrip");
   G4VPhysicalVolume *physiStrip = new G4PVPlacement(0,
-                                 G4ThreeVector(-0.15*mm,mdbby[0],0),
+                                 G4ThreeVector(-0.15*mm,mdbby[0],0*mm),
         			 logicStrip,
         			 "pStrip",
         			 logicPlacement,
@@ -279,7 +282,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
         			 0);
   
   physiStrip = new G4PVPlacement(0,
-                                G4ThreeVector(-0.15*mm,mdbby[23],0),
+                                G4ThreeVector(-0.15*mm,mdbby[23],0*mm),
         			logicStrip,
         			"pStrip",
         			logicPlacement,
@@ -296,7 +299,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
   for(G4int i=1;i<23;i++)
   {
     physiStrip = new G4PVPlacement(0,
-                                  G4ThreeVector(-0.15*mm,mdbby[i],0),
+                                  G4ThreeVector(-0.15*mm,mdbby[i],0*mm),
         			  logicStrip,
         			  "pStrip",
         			  logicPlacement,

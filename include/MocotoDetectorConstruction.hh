@@ -73,6 +73,9 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     G4Material* matTi;
     G4Material* matPb;
     G4Material* matPOLYETHYLENE;
+    G4Material* matBoneCompact;
+    G4Material* matBoneCortical;
+    G4Material* matBrain;
   public:
     G4VPhysicalVolume* MakeTargetVolume();
     G4VPhysicalVolume* MakeDetectorVolume(G4int);
