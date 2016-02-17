@@ -53,14 +53,14 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
   G4ThreeVector position = fTrack->GetPosition();
 //  if( VolumeName=="pCrystal" )
 //    CrystalSteppingAction( fStep );
-  if( VolumeName.find("pTarget")!=std::string::npos )
-    TargetSteppingAction( fStep );
+//  if( VolumeName.find("pTarget")!=std::string::npos )
+//    TargetSteppingAction( fStep );
 //  if( VolumeName=="pWorld" )
 //    WorldSteppingAction( fStep );
-  if( VolumeName=="pStrip" )
-    StripSteppingAction( fStep );
-//  else if( VolumeName=="pFlatPanel" )
-//    FlatPanelSteppingAction( fStep );
+//  if( VolumeName=="pStrip" )
+//    StripSteppingAction( fStep );
+  if( VolumeName=="pFlatPanel" )
+    FlatPanelSteppingAction( fStep );
 }
 
 void MocotoSteppingAction::CrystalSteppingAction(const G4Step* fStep)
@@ -99,6 +99,7 @@ void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
 
 void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)
 {
+  analysis->SetifFill(true);
   analysis->SetThoughEnergy( fTrack->GetKineticEnergy() );
   fTrack->SetTrackStatus( fStopAndKill );
 }

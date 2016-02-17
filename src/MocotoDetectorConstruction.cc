@@ -120,8 +120,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   
   MakeTargetVolume();
 //  MakeATubDetector();
-//  Apron();
-//  MakeFlatPanelDetector();
+  Apron();
+  MakeFlatPanelDetector();
   MakeDetectorVolume(detnumber);
   MakeCollimatorLogical(colnumber);
 
@@ -463,7 +463,7 @@ vector<G4VPhysicalVolume*> MocotoDetectorConstruction::Apron()
   if(m_wolfram != 0)
   {
     G4Box* solidWolfram = new G4Box("sWolfram",m_wolfram*0.5,10.*cm,10.*cm);
-    G4LogicalVolume* logicWolfram = new G4LogicalVolume(solidWolfram, matPb, "lWolfram");
+    G4LogicalVolume* logicWolfram = new G4LogicalVolume(solidWolfram, matWolfram, "lWolfram");
     G4VisAttributes* CopperVisAtt = new G4VisAttributes(G4Colour(1.,1.,0.));
     CopperVisAtt->SetForceSolid(true);
     logicWolfram->SetVisAttributes(CopperVisAtt);
