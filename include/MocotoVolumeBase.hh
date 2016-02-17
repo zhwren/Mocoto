@@ -21,26 +21,37 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : VarianPaxScanDigitalImagerReceptor.hh
+*    >  File Name   : MocotoVolumeBase.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 14:01                     *
+*    >  Created Time: 2016-02-17 16:34                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef VarianPaxScanDigitalImagerReceptor_h
-#define VarianPaxScanDigitalImagerReceptor_h 1
+#ifndef MocotoVolumeBase_h
+#define MocotoVolumeBase_h 1
 
-#include "MocotoVolumeBase.hh"
-
-class G4VPhysicalVolume;
-class G4LogicalVolume;
+#include "G4PVPlacement.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4LogicalVolume.hh"
+#include "G4SystemOfUnits.hh"
 class G4Material;
 
-class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
+class MocotoVolumeBase
 {
+  protected:
+    G4Material* matCsI;
+    G4Material* matWater;
+
+  private:
+    void DefineMaterials();
+
   public:
-    VarianPaxScanDigitalImagerReceptor();
-    ~VarianPaxScanDigitalImagerReceptor();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+    MocotoVolumeBase();
+    ~MocotoVolumeBase();
+
+  public:
+    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*) = 0;
+
 };
+
 #endif

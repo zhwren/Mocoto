@@ -21,26 +21,37 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : VarianPaxScanDigitalImagerReceptor.hh
+*    >  File Name   : MocotoTargetMessenger.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 14:01                     *
+*    >  Created Time: 2016-02-17 17:15                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef VarianPaxScanDigitalImagerReceptor_h
-#define VarianPaxScanDigitalImagerReceptor_h 1
+#ifndef MocotoTargetMessenger_h
+#define MocotoTargetMessenger_h 1
 
-#include "MocotoVolumeBase.hh"
+#include "G4UImessenger.hh"
+#include "globals.hh"
 
-class G4VPhysicalVolume;
-class G4LogicalVolume;
-class G4Material;
+class MocotoTarget;
+class G4UIcommand;
+class G4UIcmdWith3VectorAndUnit;
+class G4UIcmdWithADoubleAndUnit;
 
-class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
+class MocotoTargetMessenger : public G4UImessenger
 {
   public:
-    VarianPaxScanDigitalImagerReceptor();
-    ~VarianPaxScanDigitalImagerReceptor();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+    MocotoTargetMessenger(MocotoTarget*);
+    ~MocotoTargetMessenger();
+
+    void SetNewValue(G4UIcommand*, G4String);
+
+  private:
+    MocotoTarget*              target;
+    G4UIdirectory*             dTarget;
+    G4UIcmdWithADoubleAndUnit* rotate;
+    G4UIcmdWith3VectorAndUnit* trans;
+
 };
+
 #endif

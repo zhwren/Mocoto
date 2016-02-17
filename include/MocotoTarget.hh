@@ -21,26 +21,34 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : VarianPaxScanDigitalImagerReceptor.hh
+*    >  File Name   : MocotoTarget.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 14:01                     *
+*    >  Created Time: 2016-02-17 16:44                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef VarianPaxScanDigitalImagerReceptor_h
-#define VarianPaxScanDigitalImagerReceptor_h 1
+#ifndef MocotoTarget_h
+#define MocotoTarget_h 1
 
 #include "MocotoVolumeBase.hh"
+#include "G4ThreeVector.hh"
 
-class G4VPhysicalVolume;
-class G4LogicalVolume;
-class G4Material;
-
-class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
+class MocotoTargetMessenger;
+class MocotoTarget : public MocotoVolumeBase
 {
   public:
-    VarianPaxScanDigitalImagerReceptor();
-    ~VarianPaxScanDigitalImagerReceptor();
+    MocotoTarget();
+    ~MocotoTarget();
     virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+
+  public:
+    void SetRotateAngle(G4double i) { rotateangle = i; }
+    void SetTranslation(G4ThreeVector pos) { position = pos; }
+
+  private:
+    G4double rotateangle;
+    G4ThreeVector position;
+    MocotoTargetMessenger* messenger;
 };
+
 #endif

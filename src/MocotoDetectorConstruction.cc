@@ -31,6 +31,8 @@
  ***********************************************************/
 
 #include "MocotoDetectorConstruction.hh"
+#include "VarianPaxScanDigitalImagerReceptor.hh"
+#include "MocotoTarget.hh"
 
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -116,14 +118,20 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 0,
                         	 false,
                         	 999);
-  logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
+  //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
+
+  VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
+  varian->GetVolume(logicWorld);
+
+  MocotoTarget* target = new MocotoTarget();
+  target->GetVolume(logicWorld);
   
-  MakeTargetVolume();
-//  MakeATubDetector();
-//  Apron();
-//  MakeFlatPanelDetector();
-  MakeDetectorVolume(detnumber);
-  MakeCollimatorLogical(colnumber);
+//  MakeTargetVolume();
+////  MakeATubDetector();
+////  Apron();
+////  MakeFlatPanelDetector();
+//  MakeDetectorVolume(detnumber);
+//  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }

@@ -6,8 +6,9 @@
 /det/detector/Number 21
 /det/collimator/Number 21
 /det/target/diameter 20 cm
-/det/target/position 0 0 0 mm
-/det/target/rotateAngle 0 deg
+
+/target/position 0 0 0 mm
+/target/rotateAngle 0 deg
 
 /det/Apron/Copper/thickness 0 m
 /det/Apron/Wolfram/thickness 0 mm

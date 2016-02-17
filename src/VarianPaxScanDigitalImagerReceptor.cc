@@ -36,26 +36,52 @@
 #include "G4ThreeVector.hh"
 #include "G4Box.hh"
 #include "G4VSolid.hh"
-#include "G4Material.hh"
-#include "G4NistManager.hh"
+#include "G4PVPlacement.hh"
+#include "G4SystemOfUnits.hh"
 
 VarianPaxScanDigitalImagerReceptor::VarianPaxScanDigitalImagerReceptor()
-{
-  DefineMaterials();
-}
+  :MocotoVolumeBase()
+{}
 
 VarianPaxScanDigitalImagerReceptor::~VarianPaxScanDigitalImagerReceptor()
 {}
 
-void VarianPaxScanDigitalImagerReceptor::DefineMaterials()
-{
-  G4NistManager* man = G4NistManager::Instance();
-  G4bool isotopes = false;
-  matCsI = man->FindOrBuildMaterial("G4_CESIUM_IODIDE",isotopes);
-}
 
-G4VPhysicalVolume* VarianPaxScanDigitalImagerReceptor::GetVolume()
+G4VPhysicalVolume* VarianPaxScanDigitalImagerReceptor::GetVolume(G4LogicalVolume* motherVolume)
 {
+  G4Box* solidVarian = new G4Box("sVarian", 15.5/2*mm, 279.09/2*mm, 337/2*mm);
+  G4LogicalVolume* logicVarian = new G4LogicalVolume(solidVarian, matCsI, "lVarian");
+  G4VPhysicalVolume* physiVarian = new G4PVPlacement(0,
+                                                     G4ThreeVector(0,0,0),
+						     logicVarian,
+						     "pVarian",
+						     motherVolume,
+						     false,
+						     0);
+  G4int MergedNumber = 128;
+  G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
+  G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
+  G4VPhysicalVolume* physiPixel;
+  G4double positionx = 3.3/2*mm - 15.5/2*mm;
+  G4double positiony, positionz;
+  G4int CopyNumber = 1;
+
+  for(G4int iColumn = 1; iColumn < 1792/MergedNumber+1; iColumn++)
+  {
+    for(G4int iRow = 1; iRow < 2176/MergedNumber+1; iRow++)
+    {
+      positiony = (1792/MergedNumber/2. - iColumn + 0.5) * 139.*um*MergedNumber;
+      positionz = (2176/MergedNumber/2. - iRow + 0.5) * 139.*um*MergedNumber;
+      physiPixel = new G4PVPlacement(0,
+	                             G4ThreeVector(positionx, positiony, positionz),
+				     logicPixel,
+				     "pPixel",
+				     logicVarian,
+				     false,
+				     CopyNumber++);
+    }
+  }
+
   return 0;
 }
 

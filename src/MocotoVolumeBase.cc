@@ -21,26 +21,29 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : VarianPaxScanDigitalImagerReceptor.hh
+*    >  File Name   : MocotoVolumeBase.cc
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 14:01                     *
+*    >  Created Time: 2016-02-17 16:36                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef VarianPaxScanDigitalImagerReceptor_h
-#define VarianPaxScanDigitalImagerReceptor_h 1
-
 #include "MocotoVolumeBase.hh"
 
-class G4VPhysicalVolume;
-class G4LogicalVolume;
-class G4Material;
+#include "G4Material.hh"
+#include "G4NistManager.hh"
 
-class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
+MocotoVolumeBase::MocotoVolumeBase()
 {
-  public:
-    VarianPaxScanDigitalImagerReceptor();
-    ~VarianPaxScanDigitalImagerReceptor();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
-};
-#endif
+  DefineMaterials();
+}
+
+MocotoVolumeBase::~MocotoVolumeBase()
+{}
+
+void MocotoVolumeBase::DefineMaterials()
+{
+  G4NistManager* man = G4NistManager::Instance();
+  G4bool isotopes = false;
+  matCsI = man->FindOrBuildMaterial("G4_CESIUM_IODIDE",isotopes);
+  matWater = man->FindOrBuildMaterial("G4_WATER",isotopes);
+}
