@@ -58,32 +58,32 @@ G4VPhysicalVolume* VarianPaxScanDigitalImagerReceptor::GetVolume(G4LogicalVolume
 						     motherVolume,
 						     false,
 						     0);
-  logicVarian->SetVisAttributes( G4VisAttributes::Invisible );
+//  logicVarian->SetVisAttributes( G4VisAttributes::Invisible );
 
-  G4int MergedNumber = 8;
-  G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
-  G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
-  G4VPhysicalVolume* physiPixel;
-  G4double positionx = 3.3/2*mm - 15.5/2*mm;
-  G4double positiony, positionz;
-  G4int CopyNumber = 1;
-
-  for(G4int iRow = 1; iRow < 5; iRow++)
-  {
-//    for(G4int iRow = 1; iRow < 2176/MergedNumber+1; iRow++)
-    for(G4int iColumn = 1; iColumn < 1792/MergedNumber+1; iColumn++)
-    {
-      positiony = (1792/MergedNumber/2. - iColumn + 0.5) * 139.*um*MergedNumber;
-      positionz = (2 - iRow + 0.5) * 139.*um*MergedNumber;
-      physiPixel = new G4PVPlacement(0,
-	                             G4ThreeVector(positionx, positiony, positionz),
-				     logicPixel,
-				     "pPixel",
-				     logicVarian,
-				     false,
-				     CopyNumber++);
-    }
-  }
+//  G4int MergedNumber = 8;
+//  G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
+//  G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
+//  G4VPhysicalVolume* physiPixel;
+//  G4double positionx = 3.3/2*mm - 15.5/2*mm;
+//  G4double positiony, positionz;
+//  G4int CopyNumber = 1;
+//
+//  for(G4int iRow = 1; iRow < 5; iRow++)
+//  {
+////    for(G4int iRow = 1; iRow < 2176/MergedNumber+1; iRow++)
+//    for(G4int iColumn = 1; iColumn < 1792/MergedNumber+1; iColumn++)
+//    {
+//      positiony = (1792/MergedNumber/2. - iColumn + 0.5) * 139.*um*MergedNumber;
+//      positionz = (2 - iRow + 0.5) * 139.*um*MergedNumber;
+//      physiPixel = new G4PVPlacement(0,
+//	                             G4ThreeVector(positionx, positiony, positionz),
+//				     logicPixel,
+//				     "pPixel",
+//				     logicVarian,
+//				     false,
+//				     CopyNumber++);
+//    }
+//  }
 
   return 0;
 }

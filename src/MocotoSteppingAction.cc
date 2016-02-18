@@ -59,12 +59,10 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
 //    WorldSteppingAction( fStep );
 //  if( VolumeName=="pStrip" )
 //    StripSteppingAction( fStep );
-//  if( VolumeName=="pFlatPanel" )
-//    FlatPanelSteppingAction( fStep );
-//  else if( VolumeName=="pFlatPanel" )
-//    FlatPanelSteppingAction( fStep );
-  if( VolumeName=="pPixel" )
-    OnPixelDoIt( fStep );
+  if( VolumeName=="pVarian" )
+    FlatPanelSteppingAction( fStep );
+//  if( VolumeName=="pPixel" )
+//    OnPixelDoIt( fStep );
 }
 
 void MocotoSteppingAction::CrystalSteppingAction(const G4Step* fStep)
