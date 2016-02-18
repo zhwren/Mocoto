@@ -46,4 +46,6 @@ void MocotoVolumeBase::DefineMaterials()
   G4bool isotopes = false;
   matCsI = man->FindOrBuildMaterial("G4_CESIUM_IODIDE",isotopes);
   matWater = man->FindOrBuildMaterial("G4_WATER",isotopes);
+  matAir = man->FindOrBuildMaterial("G4_AIR",isotopes);
+  matBlood = man->FindOrBuildMaterial("G4_BLOOD_ICRP",isotopes);
 }

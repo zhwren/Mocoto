@@ -34,6 +34,7 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4Transform3D.hh"
 class G4Material;
 
 class MocotoVolumeBase
@@ -41,6 +42,8 @@ class MocotoVolumeBase
   protected:
     G4Material* matCsI;
     G4Material* matWater;
+    G4Material* matAir;
+    G4Material* matBlood;
 
   private:
     void DefineMaterials();
@@ -50,7 +53,7 @@ class MocotoVolumeBase
     ~MocotoVolumeBase();
 
   public:
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*) = 0;
+    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D) = 0;
 
 };
 

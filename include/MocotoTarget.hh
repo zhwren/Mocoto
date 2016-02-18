@@ -31,24 +31,14 @@
 #define MocotoTarget_h 1
 
 #include "MocotoVolumeBase.hh"
-#include "G4ThreeVector.hh"
 
-class MocotoTargetMessenger;
 class MocotoTarget : public MocotoVolumeBase
 {
   public:
     MocotoTarget();
     ~MocotoTarget();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
 
-  public:
-    void SetRotateAngle(G4double i) { rotateangle = i; }
-    void SetTranslation(G4ThreeVector pos) { position = pos; }
-
-  private:
-    G4double rotateangle;
-    G4ThreeVector position;
-    MocotoTargetMessenger* messenger;
 };
 
 #endif

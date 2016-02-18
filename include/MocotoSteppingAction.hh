@@ -48,13 +48,10 @@ class MocotoSteppingAction : public G4UserSteppingAction
   private:
     void WorldSteppingAction(const G4Step* aStep);
     void TargetSteppingAction(const G4Step* aStep);
-//    void ApronSteppingAction(const G4Step* aStep);
-//    void DetectorSteppingAction(const G4Step* aStep);
     void CrystalSteppingAction(const G4Step* aStep);
     void StripSteppingAction(const G4Step* aStep);
     void FlatPanelSteppingAction(const G4Step* aStep);
-//    void POLYESteppingAction(const G4Step* aStep);
-//    void PbSteppingAction(const G4Step* aStep);
+    void OnPixelDoIt(const G4Step* aStep);
   private:
     G4Track* fTrack;
     MocotoAnalysisManager* analysis;

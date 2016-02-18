@@ -121,10 +121,12 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
   VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
-  varian->GetVolume(logicWorld);
+  G4RotationMatrix *rot = new G4RotationMatrix();
+  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
 
   MocotoTarget* target = new MocotoTarget();
-  target->GetVolume(logicWorld);
+  rot = new G4RotationMatrix();
+  target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
 //  MakeTargetVolume();
 ////  MakeATubDetector();

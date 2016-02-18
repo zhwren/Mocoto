@@ -41,6 +41,6 @@ class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
   public:
     VarianPaxScanDigitalImagerReceptor();
     ~VarianPaxScanDigitalImagerReceptor();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
 };
 #endif
