@@ -125,7 +125,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
 
   MocotoTarget* target = new MocotoTarget();
   rot = new G4RotationMatrix();
-  target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
+  if( target_d != 0 )
+    target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
 //  MakeTargetVolume();
 //  MakeATubDetector();

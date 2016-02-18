@@ -4,7 +4,7 @@
 /det/tubdetector 0
 /det/detector/Number 0
 /det/collimator/Number 0
-/det/target/diameter 0 cm
+/det/target/diameter 20 cm
 
 /det/target/position 0 0 0 mm
 /det/target/rotateAngle 0 deg
