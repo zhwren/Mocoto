@@ -66,7 +66,7 @@ void MocotoAnalysisManager::bookEventTree()
 //  evtTree->Branch("outOfWorld", &mOutOfWorld, "outOfWorld/D");
 //  evtTree->Branch("targetReflect", &mTargetReflected, "targetReflect/D");
 //  evtTree->Branch("apronReflect", &mApronReflected, "apronReflect/D");
-  evtTree->Branch("transminnion", &mTransmission, "transmission/D");
+//  evtTree->Branch("transminnion", &mTransmission, "transmission/D");
 //  evtTree->Branch("apronDeposit", &mApronDeposit, "apronDeposit/D");
 //  evtTree->Branch("deathInTarget", &nDeathInTarget, "deathInTarget/I");
 //  evtTree->Branch("Scattering", &nScattering, "Scattering/I");
@@ -90,9 +90,9 @@ void MocotoAnalysisManager::bookEventTree()
 //  evtTree->Branch("nstep", &stepNO, "nstep/I");
 //  evtTree->Branch("totalEdep", &totalEdep, "totalEdep/D");
 //  evtTree->Branch("edepEachStep", eDepEachStep, "edep[nstep]/D");
-//  evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
-//  evtTree->Branch("HitCrystalNumber", HitCrystalNumber, "HitCrystalNumber[nHits]/I");
-//  evtTree->Branch("EnergyHitCrystal", EnergyHitCrystal, "EnergyHitCrystal[nHits]/D");
+  evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
+  evtTree->Branch("HitCrystalNumber", HitCrystalNumber, "HitCrystalNumber[nHits]/I");
+  evtTree->Branch("EnergyHitCrystal", EnergyHitCrystal, "EnergyHitCrystal[nHits]/D");
 //  evtTree->Branch("nEscape", &nCrystalsEscape, "nEscape/I");
 //  evtTree->Branch("EscapeCrystalNumber", EscapeCrystalNumber, "EscapeCrystalNumber[nEscape]/I");
 //  evtTree->Branch("EnergyEscapeCrystal", EnergyEscapeCrystal, "EnergyEscapeCrystal[nEscape]/D");
