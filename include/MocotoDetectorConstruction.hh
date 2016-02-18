@@ -80,7 +80,6 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* MakeTargetVolume();
     G4VPhysicalVolume* MakeDetectorVolume(G4int);
     G4VPhysicalVolume* MakeXrayGenerater(G4LogicalVolume*);
-    G4VPhysicalVolume* MakeFlatPanelDetector();
     G4VPhysicalVolume* MakeATubDetector();
     G4VPhysicalVolume* MakeCollimatorLogical(G4int);
     G4VPhysicalVolume* MakeDetectorLinePhysical(G4LogicalVolume*);
@@ -122,7 +121,6 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     void SetAluminumThickness(TString i) { m_aluminum = std::atof(i); }
     void SetWolframThickness(TString i) { m_wolfram = std::atof(i); }
     void SetTubDetector(TString i) { tubdetector = std::atoi(i); }
-    void SetFlatPanel(TString i) { m_flatPanel = std::atoi(i); }
     void SetTargetPosition(G4ThreeVector pos) { position = pos; }
   private:
     G4int detnumber;
@@ -133,7 +131,6 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     G4float m_copper;
     G4float m_aluminum;
     G4float m_wolfram;
-    G4float m_flatPanel;
     G4ThreeVector position;
     MocotoDetectorConstructionMessenger* messenger;
 

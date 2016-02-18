@@ -59,8 +59,12 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
 //    WorldSteppingAction( fStep );
 //  if( VolumeName=="pStrip" )
 //    StripSteppingAction( fStep );
-  if( VolumeName=="pFlatPanel" )
-    FlatPanelSteppingAction( fStep );
+//  if( VolumeName=="pFlatPanel" )
+//    FlatPanelSteppingAction( fStep );
+//  else if( VolumeName=="pFlatPanel" )
+//    FlatPanelSteppingAction( fStep );
+  if( VolumeName=="pPixel" )
+    OnPixelDoIt( fStep );
 }
 
 void MocotoSteppingAction::CrystalSteppingAction(const G4Step* fStep)
@@ -102,4 +106,11 @@ void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)
   analysis->SetifFill(true);
   analysis->SetThoughEnergy( fTrack->GetKineticEnergy() );
   fTrack->SetTrackStatus( fStopAndKill );
+}
+
+void MocotoSteppingAction::OnPixelDoIt(const G4Step* fStep)
+{
+  analysis->HitCrystal( fTrack->GetTouchable()->GetCopyNumber(0),
+                        fStep->GetTotalEnergyDeposit() );
+  analysis->SetifFill( true );
 }

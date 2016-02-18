@@ -31,6 +31,8 @@
  ***********************************************************/
 
 #include "MocotoDetectorConstruction.hh"
+#include "VarianPaxScanDigitalImagerReceptor.hh"
+#include "MocotoTarget.hh"
 
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -65,7 +67,6 @@ MocotoDetectorConstruction::MocotoDetectorConstruction()
   m_copper  = 0.*mm;
   m_aluminum = 0.*mm;
   m_wolfram = 0.*mm;
-  m_flatPanel = 0;
   tubdetector = 0;
   position = G4ThreeVector(0,0,0);
   DefineMaterials();
@@ -116,14 +117,21 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 0,
                         	 false,
                         	 999);
-  logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
+  //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
+
+  VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
+  G4RotationMatrix *rot = new G4RotationMatrix();
+  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
+
+  MocotoTarget* target = new MocotoTarget();
+  rot = new G4RotationMatrix();
+  target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
-  MakeTargetVolume();
+//  MakeTargetVolume();
 //  MakeATubDetector();
-  Apron();
-  MakeFlatPanelDetector();
-  MakeDetectorVolume(detnumber);
-  MakeCollimatorLogical(colnumber);
+//  Apron();
+//  MakeDetectorVolume(detnumber);
+//  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }
@@ -398,31 +406,6 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeXrayGenerater(G4LogicalVolume
   return physiGen;
 }
 
-//******************************************************
-// A Flat Panel Detector
-
-G4VPhysicalVolume* MocotoDetectorConstruction::MakeFlatPanelDetector()
-{
-  G4double box_x = 10.*cm;
-  G4double box_y = 80.*cm;
-  G4double box_z = 80.*cm;
-
-  solidDetector = new G4Box("sDetector", box_x*0.5, box_y*0.5, box_z*0.5);
-  logicDetector = new G4LogicalVolume(solidDetector, matAir, "lDetector");
-  if( m_flatPanel!= 0 )
-    physiDetector = new G4PVPlacement(0,
-                                    G4ThreeVector(m_wolfram/2.0+5.1*cm,0,0),
-    				    logicDetector,
-				    "pFlatPanel",
-				    logicWorld,
-				    false,
-				    0);
-
-  G4VisAttributes* DetectVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
-  DetectVisAtt->SetForceSolid( true );
-  logicDetector->SetVisAttributes( DetectVisAtt );
-  return physiDetector;
-}
 //===========================================================================================
 vector<G4VPhysicalVolume*> MocotoDetectorConstruction::Apron()
 {

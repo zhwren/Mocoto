@@ -62,7 +62,6 @@ class MocotoDetectorConstructionMessenger : public G4UImessenger
     G4UIcmdWithADoubleAndUnit*  m_aluminum;
     G4UIcmdWithADoubleAndUnit*  m_wolfram;
     G4UIcmdWithAnInteger*       tubdetector;
-    G4UIcmdWithAnInteger*       flatpanel;
     G4UIcmdWith3VectorAndUnit*  targetPosition;
 };
 #endif

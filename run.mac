@@ -3,7 +3,6 @@
 
 /histo/fileName test.root
 
-/det/flatpanel 1
 /det/tubdetector 0
 /det/detector/Number 0
 /det/collimator/Number 0

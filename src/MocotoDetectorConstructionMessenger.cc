@@ -83,10 +83,6 @@ MocotoDetectorConstructionMessenger::MocotoDetectorConstructionMessenger(MocotoD
   tubdetector->SetGuidance("tub or not");
   tubdetector->SetDefaultValue(0);
 
-  flatpanel = new G4UIcmdWithAnInteger("/det/flatpanel",this);
-  flatpanel->SetGuidance("flat panel detector");
-  flatpanel->SetDefaultValue(0);
-
   targetPosition = new G4UIcmdWith3VectorAndUnit("/det/target/position",this);
   targetPosition->SetGuidance("set target position");
   targetPosition->SetDefaultValue(G4ThreeVector(0,0,0));
@@ -104,7 +100,6 @@ MocotoDetectorConstructionMessenger::~MocotoDetectorConstructionMessenger()
   delete m_copper;
   delete m_aluminum;
   delete tubdetector;
-  delete flatpanel;
   delete m_wolfram;
   delete targetPosition;
 }
@@ -125,8 +120,6 @@ void MocotoDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4St
     det->SetAluminumThickness(newValues);
   if(command == tubdetector)
     det->SetTubDetector(newValues);
-  if(command == flatpanel )
-    det->SetFlatPanel(newValues);
   if(command == m_wolfram)
     det->SetWolframThickness(newValues);
   if(command == targetPosition)
