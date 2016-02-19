@@ -69,7 +69,7 @@ void MocotoAnalysisManager::bookEventTree()
 //  evtTree->Branch("transminnion", &mTransmission, "transmission/D");
 //  evtTree->Branch("apronDeposit", &mApronDeposit, "apronDeposit/D");
 //  evtTree->Branch("deathInTarget", &nDeathInTarget, "deathInTarget/I");
-//  evtTree->Branch("Scattering", &nScattering, "Scattering/I");
+  evtTree->Branch("Scattering", &nScattering, "Scattering/I");
 //  evtTree->Branch("Rayle",&nRayle, "Rayle/I");
 //  evtTree->Branch("Compt",&nCpmpt, "Compt/I");
 //  evtTree->Branch("NHits", &nHits, "NHits/I");

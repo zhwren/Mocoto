@@ -4,21 +4,21 @@
 /histo/fileName test.root
 
 /det/tubdetector 0
-/det/detector/Number 0
-/det/collimator/Number 0
+/det/detector/Number 21
+/det/collimator/Number 21
 
-/det/target/diameter 0 cm
+/det/target/diameter 20 cm
 /det/target/rotateAngle 0 deg
 /det/target/position 0 0 0 cm
 
 /det/Apron/Copper/thickness 0 mm
-/det/Apron/Wolfram/thickness 1 mm
+/det/Apron/Wolfram/thickness 0 mm
 /det/Apron/Aluminum/thickness 0 mm
 
 /gen/particle gamma
 /gen/particle/energy 50 keV
 /gen/particle/momentumDirection 0 90 0 deg
-/gen/particle/deltaThetaPhi 0 0 0 deg
+/gen/particle/deltaThetaPhi 0 0 40 deg
 
 /gen/particle/position -24 0 0 cm
 

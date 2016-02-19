@@ -44,6 +44,7 @@ class MocotoVolumeBase
     G4Material* matWater;
     G4Material* matAir;
     G4Material* matBlood;
+    G4Material* matBrain;
 
   private:
     void DefineMaterials();

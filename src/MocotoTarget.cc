@@ -68,7 +68,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   logicTarget->SetVisAttributes( VisAtt );
 
   solidTarget = new G4Tubs("sTarget", 2.*cm, 4.*cm, 3.*cm, 0, 360.*deg);
-  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
+  logicTarget = new G4LogicalVolume(solidTarget, matBrain, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(0,0,0),
 				  logicTarget,

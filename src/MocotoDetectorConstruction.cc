@@ -79,10 +79,10 @@ MocotoDetectorConstruction::~MocotoDetectorConstruction()
 void MocotoDetectorConstruction::DefineMaterials()
 {
   G4NistManager* man = G4NistManager::Instance();
-//  std::vector<G4String> Names = const_cast<std::vector<G4String>&>(man->GetNistMaterialNames());
-//  std::vector<G4String>::iterator it;
-//  for(it =Names.begin(); it!=Names.end(); it++)
-//    G4cout << (*it) << G4endl;
+  std::vector<G4String> Names = const_cast<std::vector<G4String>&>(man->GetNistMaterialNames());
+  std::vector<G4String>::iterator it;
+  for(it =Names.begin(); it!=Names.end(); it++)
+    G4cout << (*it) << G4endl;
   G4bool isotopes = false;
   Galactic = new G4Material("Galactic", 1., 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
   matAir = man->FindOrBuildMaterial("G4_AIR",isotopes);
@@ -119,9 +119,9 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 999);
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
-  VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
+//  VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
   G4RotationMatrix *rot = new G4RotationMatrix();
-  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
+//  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
 
   MocotoTarget* target = new MocotoTarget();
   rot = new G4RotationMatrix();
@@ -131,8 +131,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
 //  MakeTargetVolume();
 //  MakeATubDetector();
 //  Apron();
-//  MakeDetectorVolume(detnumber);
-//  MakeCollimatorLogical(colnumber);
+  MakeDetectorVolume(detnumber);
+  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }
