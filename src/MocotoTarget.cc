@@ -54,7 +54,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(1., 0., 0.) );
   logicHolder->SetVisAttributes( VisAtt );
 
-  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 2.*cm, 2.*cm, 0, 360.*deg);
+  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 2.*cm, 4.*cm, 0, 360.*deg);
   G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget, matBlood, "lTarget");
   G4VPhysicalVolume* physiTarget = new G4PVPlacement(0,
                                                      G4ThreeVector(0,0,0),
@@ -67,8 +67,8 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( VisAtt );
 
-  solidTarget = new G4Tubs("sTarget", 2.*cm, 4.*cm, 3.*cm, 0, 360.*deg);
-  logicTarget = new G4LogicalVolume(solidTarget, matBrain, "lTarget");
+  solidTarget = new G4Tubs("sTarget", 2.*cm, 4.*cm, 4.*cm, 0, 360.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(0,0,0),
 				  logicTarget,
