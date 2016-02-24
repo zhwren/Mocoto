@@ -49,4 +49,8 @@ void MocotoVolumeBase::DefineMaterials()
   matAir = man->FindOrBuildMaterial("G4_AIR",isotopes);
   matBlood = man->FindOrBuildMaterial("G4_BLOOD_ICRP",isotopes);
   matBrain = man->FindOrBuildMaterial("G4_BRAIN_ICRP",isotopes);
+  matAdiposeTissue = man->FindOrBuildMaterial("G4_ADIPOSE_TISSUE_ICRP",isotopes);
+  matAmber = man->FindOrBuildMaterial("G4_AMBER",isotopes);
+  matBone = man->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU",isotopes);
+  matMuscle = man->FindOrBuildMaterial("G4_MUSCLE_WITH_SUCROSE",isotopes);
 }

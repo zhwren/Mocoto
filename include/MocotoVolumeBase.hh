@@ -45,6 +45,10 @@ class MocotoVolumeBase
     G4Material* matAir;
     G4Material* matBlood;
     G4Material* matBrain;
+    G4Material* matAdiposeTissue;
+    G4Material* matAmber;
+    G4Material* matBone;
+    G4Material* matMuscle;
 
   private:
     void DefineMaterials();
