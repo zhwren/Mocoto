@@ -80,10 +80,10 @@ void MocotoDetectorConstruction::DefineMaterials()
 {
   G4NistManager* man = G4NistManager::Instance();
   matWater = man->FindOrBuildMaterial("G4_WATER",false);
-  std::vector<G4String> Names = const_cast<std::vector<G4String>&>(man->GetNistMaterialNames());
-  std::vector<G4String>::iterator it;
-  for(it =Names.begin(); it!=Names.end(); it++)
-    G4cout << (*it) << " " << man->FindOrBuildMaterial(*it,false)->GetDensity()/matWater->GetDensity() << G4endl;
+//  std::vector<G4String> Names = const_cast<std::vector<G4String>&>(man->GetNistMaterialNames());
+//  std::vector<G4String>::iterator it;
+//  for(it =Names.begin(); it!=Names.end(); it++)
+//    G4cout << (*it) << " " << man->FindOrBuildMaterial(*it,false)->GetDensity()/matWater->GetDensity() << G4endl;
   G4bool isotopes = false;
   Galactic = new G4Material("Galactic", 1., 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
   matAir = man->FindOrBuildMaterial("G4_AIR",isotopes);
