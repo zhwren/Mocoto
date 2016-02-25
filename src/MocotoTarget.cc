@@ -55,7 +55,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt->SetForceSolid( true );
   logicHolder->SetVisAttributes( VisAtt );
 
-  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 3.*cm, 4.*cm, 0, 360.*deg);
+  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 2.*cm, 4.*cm, 0, 360.*deg);
   G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget, matAdiposeTissue, "lTarget");
   G4VPhysicalVolume* physiTarget = new G4PVPlacement(0,
                                                      G4ThreeVector(0,0,0),
@@ -68,7 +68,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( VisAtt );
 
-  solidTarget = new G4Tubs("sTarget", 3.*cm, 6.*cm, 4.*cm, 0, 360.*deg);
+  solidTarget = new G4Tubs("sTarget", 3.*cm, 5.*cm, 4.*cm, 0, 360.*deg);
   logicTarget = new G4LogicalVolume(solidTarget, matMuscle, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(0,0,0),
@@ -81,7 +81,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( VisAtt );
  
-  solidTarget = new G4Tubs("sTarget", 6.*cm, 9.*cm, 4.*cm, 0, 360.*deg);
+  solidTarget = new G4Tubs("sTarget", 6.*cm, 8.*cm, 4.*cm, 0, 360.*deg);
   logicTarget = new G4LogicalVolume(solidTarget, matBlood, "lTarget");
   physiTarget = new G4PVPlacement(0,
                                   G4ThreeVector(0,0,0),
@@ -93,6 +93,45 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
   VisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( VisAtt );
- 
+  
+  solidTarget = new G4Tubs("sTarget", 2.*cm, 3.*cm, 4.*cm, 0, 360.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(0,0,0),
+				  logicTarget,
+				  "pTarget",
+				  logicHolder,
+				  false,
+				  0);
+  VisAtt = new G4VisAttributes( G4Colour(1., 1., 1.) );
+  VisAtt->SetForceSolid( true );
+  logicTarget->SetVisAttributes( VisAtt );
+   
+  solidTarget = new G4Tubs("sTarget", 5.*cm, 6.*cm, 4.*cm, 0, 360.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(0,0,0),
+				  logicTarget,
+				  "pTarget",
+				  logicHolder,
+				  false,
+				  0);
+  VisAtt = new G4VisAttributes( G4Colour(1., 1., 1.) );
+  VisAtt->SetForceSolid( true );
+  logicTarget->SetVisAttributes( VisAtt );
+   
+  solidTarget = new G4Tubs("sTarget", 8.*cm, 9.*cm, 4.*cm, 0, 360.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matAir, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(0,0,0),
+				  logicTarget,
+				  "pTarget",
+				  logicHolder,
+				  false,
+				  0);
+  VisAtt = new G4VisAttributes( G4Colour(1., 1., 1.) );
+  VisAtt->SetForceSolid( true );
+  logicTarget->SetVisAttributes( VisAtt );
+
   return 0;
 }
