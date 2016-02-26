@@ -60,13 +60,13 @@ G4VPhysicalVolume* VarianPaxScanDigitalImagerReceptor::GetVolume(G4LogicalVolume
 						     0);
   logicVarian->SetVisAttributes( G4VisAttributes::Invisible );
 
-  G4int MergedNumber = 8;
+  G4int MergedNumber = 4;
   G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
   G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
   G4VPhysicalVolume* physiPixel;
   G4double positionx = 3.3/2*mm - 15.5/2*mm;
   G4double positiony, positionz;
-  G4int CopyNumber = 1;
+  G4int CopyNumber = 0;
 
   for(G4int iRow = 1; iRow < 5; iRow++)
   {
@@ -84,6 +84,7 @@ G4VPhysicalVolume* VarianPaxScanDigitalImagerReceptor::GetVolume(G4LogicalVolume
 				     CopyNumber++);
     }
   }
+  G4cout << CopyNumber << G4endl;
 
   return 0;
 }

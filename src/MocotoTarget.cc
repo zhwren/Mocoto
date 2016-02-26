@@ -43,7 +43,7 @@ MocotoTarget::~MocotoTarget()
 
 G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
 {
-  G4Tubs* solidHolder = new G4Tubs("sHolder", 0, 6.*cm, 4.*cm, 0, 360.*deg);
+  G4Tubs* solidHolder = new G4Tubs("sHolder", 0, 3.*cm, 4.*cm, 0, 360.*deg);
   G4LogicalVolume* logicHolder = new G4LogicalVolume(solidHolder, matWater, "lHolder");
   G4VPhysicalVolume* physiHolder = new G4PVPlacement(placement,
 						     logicHolder,
@@ -55,10 +55,10 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
   VisAtt->SetForceSolid( true );
   logicHolder->SetVisAttributes( VisAtt );
 
-  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 1.*cm, 4.*cm, 0, 360.*deg);
+  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 0.5*cm, 4.*cm, 0, 360.*deg);
   G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget, matAdiposeTissue, "lTarget");
   G4VPhysicalVolume* physiTarget = new G4PVPlacement(0,
-                                                     G4ThreeVector(-4*cm,0,0),
+                                                     G4ThreeVector(-2*cm,0,0),
 				        	     logicTarget,
 				        	     "pTarget",
 				        	     logicHolder,
@@ -70,7 +70,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
 
   logicTarget = new G4LogicalVolume(solidTarget, matMuscle, "lTarget");
   physiTarget = new G4PVPlacement(0,
-                                  G4ThreeVector(4*cm,0,0),
+                                  G4ThreeVector(2*cm,0,0),
         	        	  logicTarget,
         	        	  "pTarget",
         	        	  logicHolder,
@@ -82,7 +82,7 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
 
   logicTarget = new G4LogicalVolume(solidTarget, matBlood, "lTarget");
   physiTarget = new G4PVPlacement(0,
-                                  G4ThreeVector(0,4*cm,0),
+                                  G4ThreeVector(0,2*cm,0),
 				  logicTarget,
 				  "pTarget",
 				  logicHolder,
