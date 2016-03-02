@@ -109,6 +109,7 @@ void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)
 void MocotoSteppingAction::OnPixelDoIt(const G4Step* fStep)
 {
   analysis->HitCrystal( fTrack->GetTouchable()->GetCopyNumber(0),
-                        fStep->GetTotalEnergyDeposit() );
+                        fTrack->GetKineticEnergy() );
+  fTrack->SetTrackStatus( fStopAndKill );
   analysis->SetifFill( true );
 }
