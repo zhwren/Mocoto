@@ -148,6 +148,8 @@ void MocotoAnalysisManager::BeginOfEvent()
     DetectorNumbers[i] = 0;
     mEscapeFromCrystal[i] = 0;
     mAttachCrystal[i] = 0;
+  }
+  for(int i=0; i<100; i++) {
     HitCrystalNumber[i] = 0;
     EscapeCrystalNumber[i] = 0;
     EnergyHitCrystal[i] = 0;

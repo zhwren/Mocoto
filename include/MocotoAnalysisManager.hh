@@ -134,10 +134,10 @@ class MocotoAnalysisManager
   private:
     Int_t nCrystalsHit;
     Int_t nCrystalsEscape;
-    Int_t HitCrystalNumber[30];
-    Int_t EscapeCrystalNumber[30];
-    Double_t EnergyHitCrystal[30];
-    Double_t EnergyEscapeCrystal[30];
+    Int_t HitCrystalNumber[100];
+    Int_t EscapeCrystalNumber[100];
+    Double_t EnergyHitCrystal[100];
+    Double_t EnergyEscapeCrystal[100];
 
   public:
     void HitCrystal(G4int,G4double);
