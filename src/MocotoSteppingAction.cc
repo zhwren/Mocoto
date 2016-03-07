@@ -53,10 +53,10 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
   G4ThreeVector position = fTrack->GetPosition();
 //  if( VolumeName=="pCrystal" )
 //    CrystalSteppingAction( fStep );
-//  if( VolumeName=="pTarget" || VolumeName=="pHolder" )
-//    TargetSteppingAction( fStep );
-//  if( VolumeName=="pWorld" )
-//    WorldSteppingAction( fStep );
+  if( VolumeName=="pTarget" || VolumeName=="pHolder" )
+    TargetSteppingAction( fStep );
+  if( VolumeName=="pWorld" )
+    WorldSteppingAction( fStep );
 //  if( VolumeName=="pStrip" )
 //    StripSteppingAction( fStep );
 //  if( VolumeName=="pVarian" )
