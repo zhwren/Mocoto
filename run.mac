@@ -1,10 +1,13 @@
+#/control/verbose 2
+#/tracking/verbose 2
+
 /histo/fileName test.root
 
 /det/tubdetector 0
 /det/detector/Number 21
 /det/collimator/Number 21
 
-/det/target/diameter 0 cm
+/det/target/diameter 20 cm
 /det/target/rotateAngle 0 deg
 /det/target/position 0 0 0 cm
 
