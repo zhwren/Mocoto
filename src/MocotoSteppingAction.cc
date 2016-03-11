@@ -113,7 +113,7 @@ void MocotoSteppingAction::OnPixelDoIt(const G4Step* fStep)
 {
   analysis->HitCrystal( fTrack->GetNextVolume()->GetCopyNo(),
                         fTrack->GetKineticEnergy() );
-  G4cout << "CopyNO:" << fTrack->GetNextVolume()->GetCopyNo() << G4endl;
+//  G4cout << "CopyNO:" << fTrack->GetNextVolume()->GetCopyNo() << G4endl;
 //  G4cout << "Particle Energy:" << fTrack->GetKineticEnergy() << G4endl;
   fTrack->SetTrackStatus( fStopAndKill );
   analysis->SetifFill( true );
