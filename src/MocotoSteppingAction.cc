@@ -51,9 +51,6 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
   G4String VolumeName = fTrack->GetVolume()->GetName();
   G4double edep = fStep->GetTotalEnergyDeposit();
   G4ThreeVector position = fTrack->GetPosition();
-  G4String nextVolume = "";
-  if( fTrack->GetNextVolume() )
-    nextVolume = fTrack->GetNextVolume()->GetName();
 //  if( VolumeName=="pCrystal" )
 //    CrystalSteppingAction( fStep );
   if( VolumeName=="pTarget" || VolumeName=="pHolder" )
@@ -64,7 +61,7 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
 //    StripSteppingAction( fStep );
 //  if( VolumeName=="pVarian" )
 //    FlatPanelSteppingAction( fStep );
-  if( nextVolume=="pPixel" )
+  if( VolumeName=="pPixel" )
     OnPixelDoIt( fStep );
 }
 
@@ -111,10 +108,9 @@ void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)
 
 void MocotoSteppingAction::OnPixelDoIt(const G4Step* fStep)
 {
-  analysis->HitCrystal( fTrack->GetNextVolume()->GetCopyNo(),
-                        fTrack->GetKineticEnergy() );
-//  G4cout << "CopyNO:" << fTrack->GetNextVolume()->GetCopyNo() << G4endl;
-//  G4cout << "Particle Energy:" << fTrack->GetKineticEnergy() << G4endl;
-  fTrack->SetTrackStatus( fStopAndKill );
+  analysis->HitCrystal( fTrack->GetTouchable()->GetCopyNumber(0),
+                        fStep->GetTotalEnergyDeposit() );
+//  G4cout << fTrack->GetTouchable()->GetCopyNumber(0) << G4endl;
+//  G4cout << fStep->GetTotalEnergyDeposit() << G4endl;
   analysis->SetifFill( true );
 }
