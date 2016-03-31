@@ -77,15 +77,11 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     G4Material* matBoneCortical;
     G4Material* matBrain;
   public:
-    G4VPhysicalVolume* MakeTargetVolume();
     G4VPhysicalVolume* MakeDetectorVolume(G4int);
-    G4VPhysicalVolume* MakeXrayGenerater(G4LogicalVolume*);
-    G4VPhysicalVolume* MakeATubDetector();
     G4VPhysicalVolume* MakeCollimatorLogical(G4int);
     G4VPhysicalVolume* MakeDetectorLinePhysical(G4LogicalVolume*);
     G4VPhysicalVolume* MakeDetectorRowPhysical(G4LogicalVolume*,G4double);
     vector<G4VPhysicalVolume*> Apron();
-    G4VPhysicalVolume* GammaSpectrum();
 
   private:
     G4Box*             solidWorld;

@@ -120,8 +120,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
   G4RotationMatrix *rot = new G4RotationMatrix();
-  MocotoRCTDetector* varian = new MocotoRCTDetector();
-  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
+//  MocotoRCTDetector* varian = new MocotoRCTDetector();
+//  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
 
   MocotoTarget* target = new MocotoTarget();
   rot = new G4RotationMatrix();
@@ -129,73 +129,11 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   if( target_d != 0 )
     target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
-//  MakeTargetVolume();
-//  MakeATubDetector();
 //  Apron();
-//  MakeDetectorVolume(detnumber);
-//  MakeCollimatorLogical(colnumber);
+  MakeDetectorVolume(detnumber);
+  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
-}
-
-//Target
-G4VPhysicalVolume* MocotoDetectorConstruction::MakeTargetVolume()
-{
-  if( target_d == 0 ) return 0;
-  G4double target_radius = target_d/2.0;
-  solidTargetHolder = new G4Tubs("sTargetHolder", 0, target_radius, 5.*cm, 0, 360.*deg);
-//  solidTargetHolder = new G4Box("sTargetHolder", target_radius, 40.1*cm ,40.1*cm);
-  logicTargetHolder = new G4LogicalVolume(solidTargetHolder, matBrain, "lTargetHolder");
-  G4RotationMatrix *rot = new G4RotationMatrix();
-  rot->rotateZ(targetRotate);
-  physiTargetHolder = new G4PVPlacement(rot,
-                                        position,
-		                        logicTargetHolder,
-		                        "pTargetHolder",
-		                        logicWorld,
-		                        false,
-	                                0);
-  G4VisAttributes* HolderVisAtt = new G4VisAttributes( G4Colour(1., 0., 0.) );
-  logicTargetHolder->SetVisAttributes( HolderVisAtt );
-
-//  solidTarget = new G4Box("sTarget", target_radius, 40*cm,40*cm);
-//  Air hole
-  solidTarget = new G4Tubs("sTarget", 0, 5*mm, 2.*cm, 0, 360.*deg);
-  logicTarget = new G4LogicalVolume(solidTarget, matBoneCompact, "lTarget");
-  physiTarget = new G4PVPlacement(0,
-                                  G4ThreeVector(-5*cm,0,0),
-		                  logicTarget,
-				  "pTarget",
-				  logicTargetHolder,
-				  false,
-				  0);
-  G4VisAttributes* TargetVisAtt = new G4VisAttributes( G4Colour(0., 1., 0.) );
-  TargetVisAtt->SetForceSolid( true );
-  logicTarget->SetVisAttributes( TargetVisAtt );
-//  Al Tube
-  logicTarget = new G4LogicalVolume(solidTarget, matBoneCortical, "lTarget");
-  physiTarget = new G4PVPlacement(0,
-                                  G4ThreeVector(5*cm,0,0),
-				  logicTarget,
-				  "pTarget",
-				  logicTargetHolder,
-				  false,
-				  0);
-  TargetVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
-  logicTarget->SetVisAttributes( TargetVisAtt );
-//  Fe Tube
-  logicTarget = new G4LogicalVolume(solidTarget, matBoneCompact, "lTarget");
-  physiTarget = new G4PVPlacement(0,
-                                  G4ThreeVector(0,5*cm,0),
-				  logicTarget,
-				  "pTarget",
-				  logicTargetHolder,
-				  false,
-				  0);
-  TargetVisAtt = new G4VisAttributes( G4Colour(1., 0., 1.) );
-  logicTarget->SetVisAttributes( TargetVisAtt );
-
-  return physiTargetHolder;
 }
 
 //Detector
@@ -266,10 +204,10 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorVolume(G4int N)
 
   //============================================================
   //----------------------Visualization-------------------------
-  //G4VisAttributes* DetectorVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
-  //DetectorVisAtt->SetForceSolid( true );
-  //logicDetector->SetVisAttributes( DetectorVisAtt );
-  logicDetector->SetVisAttributes( G4VisAttributes::Invisible );
+  G4VisAttributes* DetectorVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
+  DetectorVisAtt->SetForceSolid( true );
+  logicDetector->SetVisAttributes( DetectorVisAtt );
+//  logicDetector->SetVisAttributes( G4VisAttributes::Invisible );
 
   return physiDetector;
 }
@@ -388,26 +326,6 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorRowPhysical(G4Logical
 
   return physiCrystal;
 }
-//***********************************************************************************************
-// To Place a X-ray Generator
-G4VPhysicalVolume* MocotoDetectorConstruction::MakeXrayGenerater(G4LogicalVolume* logicPlacement)
-{
-  G4Box*             solidGen = new G4Box("sGen", 1*cm, 1*cm, 1*cm);
-  G4LogicalVolume*   logicGen = new G4LogicalVolume(solidGen, matIron, "lGen");
-  G4VPhysicalVolume* physiGen = new G4PVPlacement(0,
-                                G4ThreeVector(-24.*cm,0,0),
-				logicGen,
-				"pGen",
-				logicPlacement,
-				false,
-				0);
-  G4VisAttributes* GenVisAtt = new G4VisAttributes( G4Colour(1.,1.,0) );
-  GenVisAtt->SetForceSolid( true );
-  logicGen->SetVisAttributes( GenVisAtt );
-
-  return physiGen;
-}
-
 //===========================================================================================
 vector<G4VPhysicalVolume*> MocotoDetectorConstruction::Apron()
 {
@@ -465,31 +383,6 @@ vector<G4VPhysicalVolume*> MocotoDetectorConstruction::Apron()
   return someApron;
 }
 //===========================================================================================
-G4VPhysicalVolume* MocotoDetectorConstruction::MakeATubDetector()
-{
-  G4double r_min = 440*mm;
-  G4double r_max = 450*mm;
-  G4double height= 33.225*mm;
-
-  solidDetector = new G4Tubs("sDetector", r_min, r_max, height*0.5, -40.*deg, 80.*deg);
-  logicDetector = new G4LogicalVolume(solidDetector, matAir, "lDetector");
-  G4VisAttributes* DetectVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
-  DetectVisAtt->SetForceSolid( true );
-  logicDetector->SetVisAttributes( DetectVisAtt );
-
-  if(tubdetector)
-  {
-    physiDetector = new G4PVPlacement(0,
-                    G4ThreeVector(-240*mm,0,0),
-		    logicDetector,
-		    "pDetector",
-		    logicWorld,
-		    false,
-		    0);
-  }
-  return physiDetector;
-}
-//==========================================================================
 G4VPhysicalVolume* MocotoDetectorConstruction::MakeCollimatorLogical(G4int N)
 {
   //===============
@@ -583,20 +476,4 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeCollimatorLogical(G4int N)
   G4VisAttributes* CollimatorTubVisAtt = new G4VisAttributes( G4Colour(1., 0., 0.) );
   logicCollimatorTub->SetVisAttributes( CollimatorTubVisAtt );
   return physiCollimatorTub;
-}
-
-G4VPhysicalVolume* MocotoDetectorConstruction::GammaSpectrum()
-{
-  solidTarget = new G4Box("sTarget", 1.*mm, 2.*cm, 2.*cm);
-  logicTarget = new G4LogicalVolume(solidTarget, matWolfram, "lTarget");
-  G4RotationMatrix *rot = new G4RotationMatrix();
-  rot->rotateZ(0);
-  physiTarget = new G4PVPlacement(rot,
-                                  G4ThreeVector(0, 0, 0),
-				  logicTarget,
-				  "pTarget",
-				  logicWorld,
-				  false,
-				  0);
-  return physiTarget;
 }
