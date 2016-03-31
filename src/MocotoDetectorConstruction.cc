@@ -31,7 +31,7 @@
  ***********************************************************/
 
 #include "MocotoDetectorConstruction.hh"
-#include "VarianPaxScanDigitalImagerReceptor.hh"
+#include "MocotoRCTDetector.hh"
 #include "MocotoTarget.hh"
 
 #include "G4NistManager.hh"
@@ -119,8 +119,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 999);
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
-  VarianPaxScanDigitalImagerReceptor* varian = new VarianPaxScanDigitalImagerReceptor();
   G4RotationMatrix *rot = new G4RotationMatrix();
+  MocotoRCTDetector* varian = new MocotoRCTDetector();
   varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
 
   MocotoTarget* target = new MocotoTarget();

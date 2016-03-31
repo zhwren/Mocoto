@@ -3,7 +3,7 @@
 
 /det/tubdetector 0
 /det/detector/Number 21
-/det/collimator/Number 0
+/det/collimator/Number 21
 /det/target/diameter 10 cm
 
 /det/target/position 0 0 0 mm
@@ -19,7 +19,7 @@
 
 /gen/particle/position -24 0 0 cm
 /gen/particle/momentumDirection 0 90 0 deg
-/gen/particle/deltaThetaPhi 0 6 0 deg
+/gen/particle/deltaThetaPhi 0 6 15 deg
 
 /run/initialize
 /control/execute vis.mac

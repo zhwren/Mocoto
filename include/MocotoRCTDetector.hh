@@ -21,14 +21,15 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : VarianPaxScanDigitalImagerReceptor.hh
+*    >  CopyRight   :                                      *
+*    >  File Name   : MocotoRCTDetector.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 14:01                     *
+*    >  Created Time: 2016-03-31 13:46                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef VarianPaxScanDigitalImagerReceptor_h
-#define VarianPaxScanDigitalImagerReceptor_h 1
+#ifndef MocotoRCTDetector_h
+#define MocotoRCTDetector_h 1
 
 #include "MocotoVolumeBase.hh"
 
@@ -36,11 +37,11 @@ class G4VPhysicalVolume;
 class G4LogicalVolume;
 class G4Material;
 
-class VarianPaxScanDigitalImagerReceptor : public MocotoVolumeBase
+class MocotoRCTDetector : public MocotoVolumeBase
 {
   public:
-    VarianPaxScanDigitalImagerReceptor();
-    ~VarianPaxScanDigitalImagerReceptor();
+    MocotoRCTDetector();
+    ~MocotoRCTDetector();
     virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
 };
 #endif
