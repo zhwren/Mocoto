@@ -60,7 +60,7 @@ G4VPhysicalVolume* MocotoRCTDetector::GetVolume(G4LogicalVolume* motherVolume,G4
 						     0);
   logicVarian->SetVisAttributes( G4VisAttributes::Invisible );
 
-  G4int MergedNumber = 8;
+  G4int MergedNumber = 4;
   G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
   G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
   G4VPhysicalVolume* physiPixel;
@@ -68,7 +68,7 @@ G4VPhysicalVolume* MocotoRCTDetector::GetVolume(G4LogicalVolume* motherVolume,G4
   G4double positiony, positionz;
   G4int CopyNumber = 0;
 //  G4int nRows = 2172/MergedNumber;
-  G4int nRows = 4;
+  G4int nRows = 10;
 
   for(G4int iRow = 1; iRow < nRows+1; iRow++)
   {

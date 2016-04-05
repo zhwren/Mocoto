@@ -33,6 +33,7 @@
 #include "G4Tubs.hh"
 #include "G4VSolid.hh"
 #include "G4VisAttributes.hh"
+#include "G4SubtractionSolid.hh"
 
 MocotoTarget::MocotoTarget()
   :MocotoVolumeBase()
@@ -43,7 +44,15 @@ MocotoTarget::~MocotoTarget()
 
 G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
 {
-  G4Tubs* solidHolder = new G4Tubs("sHolder", 0, 6.*cm, 2.*cm, 0, 360.*deg);
+  G4VSolid* solidHolder = new G4Tubs("sHolder", 0, 8.*cm, 15./2*cm, 0, 360.*deg);
+  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 1.3/2*cm, 15*cm, 0, 360.*deg);
+  solidHolder = new G4SubtractionSolid("sHolder", solidHolder, solidTarget);
+  G4RotationMatrix* rot = new G4RotationMatrix();
+  solidHolder = new G4SubtractionSolid("sHolder", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(6.5*cm,0,0)));
+  solidHolder = new G4SubtractionSolid("sHolder", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(-6.5*cm,0,0)));
+  solidHolder = new G4SubtractionSolid("sHolder", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(0,6.5*cm,0)));
+  solidHolder = new G4SubtractionSolid("sHolder", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(0,-6.5*cm,0)));
+  
   G4LogicalVolume* logicHolder = new G4LogicalVolume(solidHolder, matWater, "lHolder");
   G4VPhysicalVolume* physiHolder = new G4PVPlacement(placement,
 						     logicHolder,
@@ -51,23 +60,10 @@ G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume,G4Trans
 						     motherVolume,
 						     false,
 						     0);
-  G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(1., 1., 0.) );
+  G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(0.5,0.5,0.5) );
   VisAtt->SetForceSolid( true );
   logicHolder->SetVisAttributes( VisAtt );
 
-//  G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 1*cm, 2.*cm, 0, 360.*deg);
-//  G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget, matAdiposeTissue, "lTarget");
-//  G4VPhysicalVolume* physiTarget = new G4PVPlacement(0,
-//                                                     G4ThreeVector(-3*cm,0,0),
-//				        	     logicTarget,
-//				        	     "pTarget",
-//				        	     logicHolder,
-//				        	     false,
-//				        	     0);
-//  VisAtt = new G4VisAttributes( G4Colour(1., 0., 0.) );
-//  VisAtt->SetForceSolid( true );
-//  logicTarget->SetVisAttributes( VisAtt );
-//
 //  logicTarget = new G4LogicalVolume(solidTarget, matMuscle, "lTarget");
 //  physiTarget = new G4PVPlacement(0,
 //                                  G4ThreeVector(3*cm,0,0),

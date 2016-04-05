@@ -7,7 +7,7 @@
 /det/target/diameter 10 cm
 
 /det/target/position 0 0 0 mm
-/det/target/diameter 10 cm
+/det/target/diameter 0 cm
 /det/target/rotateAngle 180 deg
 
 /det/Apron/Copper/thickness 0 m
@@ -17,9 +17,9 @@
 /gen/particle gamma
 /gen/particle/energy 100 keV
 
-/gen/particle/position -24 0 0 cm
+/gen/particle/position -657.5 0 0 mm
 /gen/particle/momentumDirection 0 90 0 deg
-/gen/particle/deltaThetaPhi 0 3 0 deg
+/gen/particle/deltaThetaPhi 0 0.5 8.5 deg
 
 /run/initialize
 /control/execute vis.mac

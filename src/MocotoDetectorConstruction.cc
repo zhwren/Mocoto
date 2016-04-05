@@ -104,9 +104,9 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
 {
 
   ////World Parameters
-  G4double world_x = 1.0*m;
-  G4double world_y = 1.0*m;
-  G4double world_z = 1.0*m;
+  G4double world_x = 2.0*m;
+  G4double world_y = 2.0*m;
+  G4double world_z = 2.0*m;
 
   solidWorld = new G4Box("sWorld", 0.5*world_x, 0.5*world_y, 0.5*world_z);
   logicWorld = new G4LogicalVolume(solidWorld, matAir, "lWorld");
@@ -120,8 +120,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
   G4RotationMatrix *rot = new G4RotationMatrix();
-//  MocotoRCTDetector* varian = new MocotoRCTDetector();
-//  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(20*cm+15.5/2*mm,0,0)));
+  MocotoRCTDetector* varian = new MocotoRCTDetector();
+  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(19*cm+15.5/2*mm,0,0)));
 
   MocotoTarget* target = new MocotoTarget();
   rot = new G4RotationMatrix();
@@ -130,8 +130,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
     target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
 //  Apron();
-  MakeDetectorVolume(detnumber);
-  MakeCollimatorLogical(colnumber);
+//  MakeDetectorVolume(detnumber);
+//  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }
