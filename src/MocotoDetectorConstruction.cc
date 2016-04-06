@@ -127,7 +127,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   rot = new G4RotationMatrix();
   rot->rotateZ(targetRotate);
   if( target_d != 0 )
-    target->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
+    target->GetPhantomVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
   
 //  Apron();
 //  MakeDetectorVolume(detnumber);
@@ -171,35 +171,6 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorVolume(G4int N)
     copyNo++;
   }
 
-//  for(G4int i=0; i<(N+1)/2; i++)
-//  {
-//    RotateDegree = i*3.5*deg;
-//    tmpx = DetectorRadius*cos(RotateDegree)-24*cm;
-//    tmpy = DetectorRadius*sin(RotateDegree);
-//    rot = new G4RotationMatrix();
-//    rot->rotateZ((-1)*RotateDegree);
-//    physiDetector = new G4PVPlacement(rot,
-//	                              G4ThreeVector(tmpx,tmpy,10*cm),
-//				      logicDetector,
-//				      "pDetector",
-//				      logicWorld,
-//				      false,
-//				      copyNo*100);
-//    copyNo++;
-//    if( i != 0 )
-//    {
-//      rot = new G4RotationMatrix();
-//      rot->rotateZ(RotateDegree);
-//      physiDetector = new G4PVPlacement(rot,
-//  	                                G4ThreeVector(tmpx,-1*tmpy,10*cm),
-//				        logicDetector,
-//				        "pDetector",
-//				        logicWorld,
-//				        false,
-//				        copyNo*100);
-//      copyNo++;
-//    }
-//  }
   MakeDetectorLinePhysical(logicDetector);
 
   //============================================================
@@ -442,32 +413,6 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeCollimatorLogical(G4int N)
       			              false,
       			              0);
   }
-
-//  for(G4int i=0; i<(N+1)/2; i++)
-//  {
-//    rotate = i*3.5*deg;
-//    rot = new G4RotationMatrix();
-//    rot->rotateZ((-1)*rotate);
-//    physiCollimatorTub = new G4PVPlacement(rot,
-//	                                   G4ThreeVector(-24*cm,0,0),
-//				           logicCollimatorTub,
-//				           "pCollimatorTub",
-//				           logicWorld,
-//				           false,
-//				           0);
-//    if( i != 0 )
-//    {
-//      rot = new G4RotationMatrix();
-//      rot->rotateZ(rotate);
-//      physiCollimatorTub = new G4PVPlacement(rot,
-//  	                                     G4ThreeVector(-24*cm,0,0),
-//				             logicCollimatorTub,
-//				             "pCollimatorTub",
-//				             logicWorld,
-//				             false,
-//				             0);
-//    }
-//  }
 
   G4VisAttributes* CollimatorVisAtt = new G4VisAttributes( G4Colour(1., 1., 0.) );
   CollimatorVisAtt->SetForceSolid( true );

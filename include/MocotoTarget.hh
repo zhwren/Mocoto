@@ -39,6 +39,9 @@ class MocotoTarget : public MocotoVolumeBase
     ~MocotoTarget();
     virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
 
+  public:
+    G4VPhysicalVolume* GetPhantomVolume(G4LogicalVolume*,G4Transform3D);
+
 };
 
 #endif

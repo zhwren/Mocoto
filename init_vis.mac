@@ -7,7 +7,7 @@
 /det/target/diameter 10 cm
 
 /det/target/position 0 0 0 mm
-/det/target/diameter 0 cm
+/det/target/diameter 10 cm
 /det/target/rotateAngle 180 deg
 
 /det/Apron/Copper/thickness 0 m
