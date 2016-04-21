@@ -21,13 +21,13 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoTarget.cc
+*    >  File Name   : MocotoVolumeTarget.cc
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
 *    >  Created Time: 2016-02-17 16:46                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#include "MocotoTarget.hh"
+#include "MocotoVolumeTarget.hh"
 
 #include "G4Orb.hh"
 #include "G4Tubs.hh"
@@ -35,17 +35,17 @@
 #include "G4VisAttributes.hh"
 #include "G4SubtractionSolid.hh"
 
-MocotoTarget::MocotoTarget()
-  :MocotoVolumeBase()
+MocotoVolumeTarget::MocotoVolumeTarget()
+  :MocotoVolume()
 {}
 
-MocotoTarget::~MocotoTarget()
+MocotoVolumeTarget::~MocotoVolumeTarget()
 {}
 
-G4VPhysicalVolume* MocotoTarget::GetVolume(G4LogicalVolume* motherVolume, G4Transform3D placement)
+G4VPhysicalVolume* MocotoVolumeTarget::GetVolume(G4LogicalVolume* motherVolume, G4Transform3D placement)
 {}
 
-G4VPhysicalVolume* MocotoTarget::GetPhantomVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
+G4VPhysicalVolume* MocotoVolumeTarget::GetPhantomVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
 {
   G4VSolid* solidHolder = new G4Tubs("sHolder", 0, 8.*cm, 15./2*cm, 0, 360.*deg);
   G4VSolid* solidTarget = new G4Tubs("sTarget", 0, 1.3/2*cm, 15*cm, 0, 360.*deg);

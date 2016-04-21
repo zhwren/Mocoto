@@ -31,8 +31,8 @@
  ***********************************************************/
 
 #include "MocotoDetectorConstruction.hh"
-#include "MocotoRCTDetector.hh"
-#include "MocotoTarget.hh"
+#include "MocotoVolumeRCT.hh"
+#include "MocotoVolumeTarget.hh"
 
 #include "G4NistManager.hh"
 #include "G4Box.hh"
@@ -120,10 +120,10 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
   G4RotationMatrix *rot = new G4RotationMatrix();
-  MocotoRCTDetector* varian = new MocotoRCTDetector();
+  MocotoVolumeRCT* varian = new MocotoVolumeRCT();
   varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(19*cm+15.5/2*mm,0,0)));
 
-  MocotoTarget* target = new MocotoTarget();
+  MocotoVolumeTarget* target = new MocotoVolumeTarget();
   rot = new G4RotationMatrix();
   rot->rotateZ(targetRotate);
   if( target_d != 0 )
@@ -296,62 +296,6 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorRowPhysical(G4Logical
   logicCrystal->SetVisAttributes( rowVisAtt );
 
   return physiCrystal;
-}
-//===========================================================================================
-vector<G4VPhysicalVolume*> MocotoDetectorConstruction::Apron()
-{
-
-  vector<G4VPhysicalVolume*> someApron;
-  if(m_copper != 0)
-  {
-    G4Box* solidCopper = new G4Box("sCopper",m_copper*0.5,10.*cm,10.*cm);
-    G4LogicalVolume* logicCopper = new G4LogicalVolume(solidCopper, matCu, "lCopper");
-    G4VisAttributes* CopperVisAtt = new G4VisAttributes(G4Colour(1.,0.,0.));
-    CopperVisAtt->SetForceSolid(true);
-    logicCopper->SetVisAttributes(CopperVisAtt);
-    G4VPhysicalVolume* physiCopper = new G4PVPlacement(0,
-	                             G4ThreeVector(-20*cm+m_copper*0.5,0,0),
-				     logicCopper,
-				     "pApronCopper",
-				     logicWorld,
-				     false,
-				     0);
-    someApron.push_back( physiCopper );
-  }
-  if(m_aluminum != 0)
-  {
-    G4Box* solidAluminum = new G4Box("sAluminum", m_aluminum*0.5, 10.*cm, 10.*cm);
-    G4LogicalVolume* logicAluminum = new G4LogicalVolume(solidAluminum, matAl, "lAluminum");
-    G4VisAttributes* AluminumVisAtt = new G4VisAttributes(G4Colour(0.8,0.8,0.8));
-    AluminumVisAtt->SetForceSolid(true);
-    logicAluminum->SetVisAttributes(AluminumVisAtt);
-    G4VPhysicalVolume* physiAluminum = new G4PVPlacement(0,
-	                               G4ThreeVector(0,0,0),
-				       logicAluminum,
-				       "pApronAluminum",
-				       logicWorld,
-				       false,
-				       0);
-    someApron.push_back( physiAluminum );
-  }
-  if(m_wolfram != 0)
-  {
-    G4Box* solidWolfram = new G4Box("sWolfram",m_wolfram*0.5,10.*cm,10.*cm);
-    G4LogicalVolume* logicWolfram = new G4LogicalVolume(solidWolfram, matWater, "lWolfram");
-    G4VisAttributes* CopperVisAtt = new G4VisAttributes(G4Colour(1.,1.,0.));
-    CopperVisAtt->SetForceSolid(true);
-    logicWolfram->SetVisAttributes(CopperVisAtt);
-    G4VPhysicalVolume* physiWolfram = new G4PVPlacement(0,
-                                     G4ThreeVector(0,0,0),
-				     logicWolfram,
-				     "pApronWolfram",
-				     logicWorld,
-				     false,
-				     0);
-    someApron.push_back( physiWolfram );
-  }
-
-  return someApron;
 }
 //===========================================================================================
 G4VPhysicalVolume* MocotoDetectorConstruction::MakeCollimatorLogical(G4int N)

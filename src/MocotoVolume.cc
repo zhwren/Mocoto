@@ -21,26 +21,26 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoVolumeBase.cc
+*    >  File Name   : MocotoVolume.cc
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
 *    >  Created Time: 2016-02-17 16:36                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#include "MocotoVolumeBase.hh"
+#include "MocotoVolume.hh"
 
 #include "G4Material.hh"
 #include "G4NistManager.hh"
 
-MocotoVolumeBase::MocotoVolumeBase()
+MocotoVolume::MocotoVolume()
 {
   DefineMaterials();
 }
 
-MocotoVolumeBase::~MocotoVolumeBase()
+MocotoVolume::~MocotoVolume()
 {}
 
-void MocotoVolumeBase::DefineMaterials()
+void MocotoVolume::DefineMaterials()
 {
   G4NistManager* man = G4NistManager::Instance();
   G4bool isotopes = false;

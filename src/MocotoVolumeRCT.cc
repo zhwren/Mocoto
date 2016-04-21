@@ -21,13 +21,13 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoRCTDetector.cc
+*    >  File Name   : MocotoVolumeRCT.cc
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
 *    >  Created Time: 2016-02-17 14:06                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#include "MocotoRCTDetector.hh"
+#include "MocotoVolumeRCT.hh"
 
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
@@ -40,15 +40,15 @@
 #include "G4SystemOfUnits.hh"
 #include "G4VisAttributes.hh"
 
-MocotoRCTDetector::MocotoRCTDetector()
-  :MocotoVolumeBase()
+MocotoVolumeRCT::MocotoVolumeRCT()
+  :MocotoVolume()
 {}
 
-MocotoRCTDetector::~MocotoRCTDetector()
+MocotoVolumeRCT::~MocotoVolumeRCT()
 {}
 
 
-G4VPhysicalVolume* MocotoRCTDetector::GetVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
+G4VPhysicalVolume* MocotoVolumeRCT::GetVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
 {
   G4Box* solidVarian = new G4Box("sVarian", 15.5/2*mm, 279.09/2*mm, 337/2*mm);
   G4LogicalVolume* logicVarian = new G4LogicalVolume(solidVarian, matAir, "lVarian");

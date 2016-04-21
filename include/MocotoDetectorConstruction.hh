@@ -36,7 +36,6 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
 #include "TString.h"
-#include <vector>
 #include "G4ThreeVector.hh"
 using namespace std;
 
@@ -81,7 +80,6 @@ class MocotoDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* MakeCollimatorLogical(G4int);
     G4VPhysicalVolume* MakeDetectorLinePhysical(G4LogicalVolume*);
     G4VPhysicalVolume* MakeDetectorRowPhysical(G4LogicalVolume*,G4double);
-    vector<G4VPhysicalVolume*> Apron();
 
   private:
     G4Box*             solidWorld;
