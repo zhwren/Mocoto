@@ -57,10 +57,8 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
     TargetSteppingAction( fStep );
   if( VolumeName=="pWorld" )
     WorldSteppingAction( fStep );
-//  if( VolumeName=="pStrip" )
-//    StripSteppingAction( fStep );
-//  if( VolumeName=="pVarian" )
-//    FlatPanelSteppingAction( fStep );
+  if( VolumeName=="pStrip" )
+    StripSteppingAction( fStep );
   if( VolumeName=="pPixel" )
     OnPixelDoIt( fStep );
 }
@@ -94,9 +92,15 @@ void MocotoSteppingAction::WorldSteppingAction(const G4Step* fStep)
 void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
 {
   G4int strip = fTrack->GetTouchable()->GetCopyNumber(0);
-  G4int detec = fTrack->GetTouchable()->GetCopyNumber(1);
-  analysis->HitCrystal(strip+detec*24, fStep->GetTotalEnergyDeposit());
+//  G4int detec = fTrack->GetTouchable()->GetCopyNumber(1);
+//  analysis->HitCrystal(strip+detec*24, fStep->GetTotalEnergyDeposit());
+  analysis->HitCrystal(strip, fStep->GetTotalEnergyDeposit());
   analysis->SetifFill(true);
+  if( fStep->IsLastStepInVolume() && particleName=="gamma" )
+  {
+    analysis->EscapeCrystal( strip, fTrack->GetKineticEnergy(), fTrack->GetPosition() );
+    G4cout << fTrack->GetPosition() << G4endl;
+  }
 }
 
 void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)

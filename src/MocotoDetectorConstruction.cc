@@ -120,18 +120,17 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
 
   G4RotationMatrix *rot = new G4RotationMatrix();
-  MocotoVolumeRCT* varian = new MocotoVolumeRCT();
-  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(19*cm+15.5/2*mm,0,0)));
+//  MocotoVolumeRCT* varian = new MocotoVolumeRCT();
+//  varian->GetVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(19*cm+15.5/2*mm,0,0)));
 
   MocotoVolumeTarget* target = new MocotoVolumeTarget();
   rot = new G4RotationMatrix();
   rot->rotateZ(targetRotate);
   if( target_d != 0 )
-    target->GetPhantomVolume(logicWorld,G4Transform3D(*rot,G4ThreeVector(0,0,0)));
+    target->GetDiffSizeOfTarget( target_d, logicWorld);
   
-//  Apron();
-//  MakeDetectorVolume(detnumber);
-//  MakeCollimatorLogical(colnumber);
+  MakeDetectorVolume(detnumber);
+  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }
@@ -154,31 +153,45 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorVolume(G4int N)
   //============================================================
   //-----------------------21 detectors-------------------------
   G4int copyNo = 0;
-  for(G4int i=0; i<N; i++)
+  if( N==1 )
   {
-    RotateDegree = (35-i*3.5)*deg;
-    tmpx = DetectorRadius*cos(RotateDegree)-24*cm;
-    tmpy = DetectorRadius*sin(RotateDegree);
-    rot = new G4RotationMatrix();
-    rot->rotateZ((-1)*RotateDegree);
-    physiDetector = new G4PVPlacement(rot,
-                                      G4ThreeVector(tmpx,tmpy,0),
-      			              logicDetector,
-      			              "pDetector",
-      			              logicWorld,
-      			              false,
-      			              copyNo);
+    physiDetector = new G4PVPlacement(0,
+	                              G4ThreeVector(DetectorRadius-24*cm, 0, 0),
+				      logicDetector,
+				      "pDetector",
+				      logicWorld,
+				      false,
+				      copyNo);
     copyNo++;
   }
 
+  else
+  {
+    for(G4int i=0; i<N; i++)
+    {
+      RotateDegree = (35-i*3.5)*deg;
+      tmpx = DetectorRadius*cos(RotateDegree)-24*cm;
+      tmpy = DetectorRadius*sin(RotateDegree);
+      rot = new G4RotationMatrix();
+      rot->rotateZ((-1)*RotateDegree);
+      physiDetector = new G4PVPlacement(rot,
+                                        G4ThreeVector(tmpx,tmpy,0),
+        			              logicDetector,
+        			              "pDetector",
+        			              logicWorld,
+        			              false,
+        			              copyNo);
+      copyNo++;
+    }
+  }
   MakeDetectorLinePhysical(logicDetector);
 
   //============================================================
   //----------------------Visualization-------------------------
-  G4VisAttributes* DetectorVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
-  DetectorVisAtt->SetForceSolid( true );
-  logicDetector->SetVisAttributes( DetectorVisAtt );
-//  logicDetector->SetVisAttributes( G4VisAttributes::Invisible );
+  //G4VisAttributes* DetectorVisAtt = new G4VisAttributes( G4Colour(0., 0., 1.) );
+  //DetectorVisAtt->SetForceSolid( true );
+  //logicDetector->SetVisAttributes( DetectorVisAtt );
+  logicDetector->SetVisAttributes( G4VisAttributes::Invisible );
 
   return physiDetector;
 }
@@ -343,19 +356,32 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeCollimatorLogical(G4int N)
     }
   }
 
-
-  for(G4int i=0; i<N; i++)
+  if( N==1 )
   {
-    rotate = (35-i*3.5)*deg;
-    rot = new G4RotationMatrix();
-    rot->rotateZ((-1)*rotate);
-    physiDetector = new G4PVPlacement(rot,
-                                      G4ThreeVector(-24*cm,0,0),
-      			              logicCollimatorTub,
-      			              "pCollimatorTub",
-      			              logicWorld,
-      			              false,
-      			              0);
+    physiDetector = new G4PVPlacement(0,
+	                              G4ThreeVector(-24*cm, 0, 0),
+				      logicCollimatorTub,
+				      "pCollimatorTub",
+				      logicWorld,
+				      false,
+				      0);
+  }
+
+  else
+  {
+    for(G4int i=0; i<N; i++)
+    {
+      rotate = (35-i*3.5)*deg;
+      rot = new G4RotationMatrix();
+      rot->rotateZ((-1)*rotate);
+      physiDetector = new G4PVPlacement(rot,
+                                        G4ThreeVector(-24*cm,0,0),
+        			              logicCollimatorTub,
+        			              "pCollimatorTub",
+        			              logicWorld,
+        			              false,
+        			              0);
+    }
   }
 
   G4VisAttributes* CollimatorVisAtt = new G4VisAttributes( G4Colour(1., 1., 0.) );

@@ -93,12 +93,12 @@ void MocotoAnalysisManager::bookEventTree()
   evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
   evtTree->Branch("HitCrystalNumber", HitCrystalNumber, "HitCrystalNumber[nHits]/I");
   evtTree->Branch("EnergyHitCrystal", EnergyHitCrystal, "EnergyHitCrystal[nHits]/D");
-//  evtTree->Branch("nEscape", &nCrystalsEscape, "nEscape/I");
-//  evtTree->Branch("EscapeCrystalNumber", EscapeCrystalNumber, "EscapeCrystalNumber[nEscape]/I");
-//  evtTree->Branch("EnergyEscapeCrystal", EnergyEscapeCrystal, "EnergyEscapeCrystal[nEscape]/D");
-//  evtTree->Branch("x", px, "x[nstep]/F");
-//  evtTree->Branch("y", py, "y[nstep]/F");
-//  evtTree->Branch("z", pz, "z[nstep]/F");
+  evtTree->Branch("nEscape", &nCrystalsEscape, "nEscape/I");
+  evtTree->Branch("EscapeCrystalNumber", EscapeCrystalNumber, "EscapeCrystalNumber[nEscape]/I");
+  evtTree->Branch("EnergyEscapeCrystal", EnergyEscapeCrystal, "EnergyEscapeCrystal[nEscape]/D");
+  evtTree->Branch("x", px, "x[nEscape]/F");
+  evtTree->Branch("y", py, "y[nEscape]/F");
+  evtTree->Branch("z", pz, "z[nEscape]/F");
 }
 
 void MocotoAnalysisManager::BeginOfRun()

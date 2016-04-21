@@ -68,3 +68,19 @@ G4VPhysicalVolume* MocotoVolumeTarget::GetPhantomVolume(G4LogicalVolume* motherV
   logicHolder->SetVisAttributes( VisAtt );
 
 }
+
+G4VPhysicalVolume* MocotoVolumeTarget::GetDiffSizeOfTarget(G4int target_d, G4LogicalVolume* motherVolume)
+{
+  G4VSolid* solidTarget = new G4Tubs("sHolder", 0, target_d/2, 15./2*cm, 0, 360.*deg);
+  G4LogicalVolume *logicTarget = new G4LogicalVolume(solidTarget, matWater, "lTarget");
+  G4VPhysicalVolume* physiTarget = new G4PVPlacement(0,
+                                                     G4ThreeVector(0,0,0),
+						     logicTarget,
+						     "pTarget",
+						     motherVolume,
+						     false,
+						     0);
+  G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(0.5,0.5,0.5) );
+  VisAtt->SetForceSolid( true );
+  logicTarget->SetVisAttributes( VisAtt );
+}
