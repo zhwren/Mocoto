@@ -7,7 +7,7 @@
 /det/detector/Number 1
 /det/collimator/Number 1
 
-/det/target/diameter 16 cm
+/det/target/diameter 0 cm
 /det/target/rotateAngle 0 deg
 /det/target/position 0 0 0 cm
 
@@ -23,4 +23,4 @@
 /gen/particle/position -24 0 0 cm
 
 /run/initialize
-/run/beamOn 500000
+/run/beamOn 5000

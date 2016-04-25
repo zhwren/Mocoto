@@ -171,17 +171,7 @@ void MocotoAnalysisManager::BeginOfEvent()
 
 void MocotoAnalysisManager::EndOfEvent()
 {
-  if( m_ifFill )
-  {
-    map<G4int,G4double>::iterator it;
-    for(it=HitInfomation.begin();it!=HitInfomation.end();it++)
-    {
-      HitCrystalNumber[nCrystalsHit] = it->first;
-      EnergyHitCrystal[nCrystalsHit] = it->second;
-      nCrystalsHit++;
-    }
-    evtTree->Fill();
-  }
+  if( m_ifFill )  evtTree->Fill();
 }
 
 void MocotoAnalysisManager::SetProcess(G4String name)
@@ -266,7 +256,9 @@ void MocotoAnalysisManager::SetEnergyDepositInWorfarm(G4double energy,G4ThreeVec
 
 void MocotoAnalysisManager::HitCrystal(G4int number,G4double energy)
 {
-  HitInfomation[number] += energy;
+  HitCrystalNumber[nCrystalsHit] = number;
+  EnergyHitCrystal[nCrystalsHit] = energy;
+  nCrystalsHit++;
 }
 
 void MocotoAnalysisManager::EscapeCrystal(G4int number,G4double energy,G4ThreeVector pos)

@@ -91,16 +91,25 @@ void MocotoSteppingAction::WorldSteppingAction(const G4Step* fStep)
 
 void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
 {
-  G4int strip = fTrack->GetTouchable()->GetCopyNumber(0);
-//  G4int detec = fTrack->GetTouchable()->GetCopyNumber(1);
-//  analysis->HitCrystal(strip+detec*24, fStep->GetTotalEnergyDeposit());
-  analysis->HitCrystal(strip, fStep->GetTotalEnergyDeposit());
   analysis->SetifFill(true);
-  if( fStep->IsLastStepInVolume() && particleName=="gamma" )
+  G4int strip = fTrack->GetTouchable()->GetCopyNumber(0);
+  
+  if( fStep->IsFirstStepInVolume() &&particleName=="gamma" )
   {
-    analysis->EscapeCrystal( strip, fTrack->GetKineticEnergy(), fTrack->GetPosition() );
-    G4cout << fTrack->GetPosition() << G4endl;
+    const std::vector<const G4Track*>* secondaries = fStep->GetSecondaryInCurrentStep();
+    G4int nbtrk = (*secondaries).size();
+    G4double secondaryEnergy = 0;
+    for(G4int i=0; i<nbtrk; i++) {
+      const G4Track* trk = (*secondaries)[i];
+      secondaryEnergy += trk->GetKineticEnergy();
+    }
+
+    analysis->HitCrystal( strip, fTrack->GetKineticEnergy()+secondaryEnergy );
+    G4cout << "First Step: " << fTrack->GetKineticEnergy()+secondaryEnergy << G4endl;
   }
+
+  if( fStep->IsLastStepInVolume() && particleName=="gamma" )
+    analysis->EscapeCrystal( strip, fTrack->GetKineticEnergy(), fTrack->GetPosition() );
 }
 
 void MocotoSteppingAction::FlatPanelSteppingAction(const G4Step* fStep)
