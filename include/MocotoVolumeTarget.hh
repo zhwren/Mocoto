@@ -32,16 +32,25 @@
 
 #include "MocotoVolume.hh"
 
+class G4VSolid;
+class G4LogicalVolume;
+class G4VPhysicalVolume;
+
 class MocotoVolumeTarget : public MocotoVolume
 {
   public:
     MocotoVolumeTarget();
     ~MocotoVolumeTarget();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
 
   public:
     G4VPhysicalVolume* GetPhantomVolume(G4LogicalVolume*,G4Transform3D);
     G4VPhysicalVolume* GetDiffSizeOfTarget(G4int,G4LogicalVolume*);
+
+  private:
+    G4VSolid*          solidHolder;
+    G4VSolid*          solidTarget;
+    G4LogicalVolume*   logicTarget;
+    G4VPhysicalVolume* physiTarget;
 
 };
 

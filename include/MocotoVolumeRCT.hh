@@ -36,12 +36,24 @@
 class G4VPhysicalVolume;
 class G4LogicalVolume;
 class G4Material;
+class G4Box;
 
 class MocotoVolumeRCT : public MocotoVolume
 {
   public:
     MocotoVolumeRCT();
     ~MocotoVolumeRCT();
-    virtual G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4Transform3D);
+
+  public:
+    G4VPhysicalVolume* GetVolume(G4LogicalVolume*);
+
+  private:
+    G4Box*             solidVarian;
+    G4LogicalVolume*   logicVarian;
+    G4VPhysicalVolume* physiVarian;
+
+    G4Box*             solidPixel;
+    G4LogicalVolume*   logicPixel;
+    G4VPhysicalVolume* physiPixel;
 };
 #endif

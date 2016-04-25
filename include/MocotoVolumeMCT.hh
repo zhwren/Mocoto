@@ -21,42 +21,51 @@
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoVolume.hh
+*    >  CopyRight   :                                      *
+*    >  File Name   : MocotoVolumeMCT.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 16:34                     *
+*    >  Created Time: 2016-04-25 10:13                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef MocotoVolume_h
-#define MocotoVolume_h 1
+#ifndef MocotoVolumeMCT_h
+#define MocotoVolumeMCT_h 1
 
-#include "G4PVPlacement.hh"
-#include "G4VPhysicalVolume.hh"
-#include "G4LogicalVolume.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4Transform3D.hh"
-class G4Material;
+#include "MocotoVolume.hh"
 
-class MocotoVolume
+class G4Box;
+class G4LogicalVolume;
+class G4VPhysicalVolume;
+
+class MocotoVolumeMCT : public MocotoVolume
 {
-  protected:
-    G4Material* matCsI;
-    G4Material* matWater;
-    G4Material* matAir;
-    G4Material* matBlood;
-    G4Material* matBrain;
-    G4Material* matAdiposeTissue;
-    G4Material* matAmber;
-    G4Material* matBone;
-    G4Material* matMuscle;
-
-  private:
-    void DefineMaterials();
+  public:
+    MocotoVolumeMCT();
+    ~MocotoVolumeMCT();
 
   public:
-    MocotoVolume();
-    ~MocotoVolume();
+    G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4int nModule=1);
+
+  private:
+    G4VPhysicalVolume* GetRowDetail();
+    G4VPhysicalVolume* GetColumnDetail();
+
+  private:
+    G4Box*             solidModule;
+    G4LogicalVolume*   logicModule;
+    G4VPhysicalVolume* physiModule;
+
+    G4Box*             solidRowDetail1;
+    G4LogicalVolume*   logicRowDetail1;
+    G4VPhysicalVolume* physiRowDetail1;
+
+    G4Box*             solidRowDetail2;
+    G4LogicalVolume*   logicRowDetail2;
+    G4VPhysicalVolume* physiRowDetail2;
+
+    G4Box*             solidColumnDetail;
+    G4LogicalVolume*   logicColumnDetail;
+    G4VPhysicalVolume* physiColumnDetail;
 
 };
-
 #endif

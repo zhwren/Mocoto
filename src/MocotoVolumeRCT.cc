@@ -31,8 +31,6 @@
 
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
-#include "G4Sphere.hh"
-#include "G4Tubs.hh"
 #include "G4ThreeVector.hh"
 #include "G4Box.hh"
 #include "G4VSolid.hh"
@@ -48,22 +46,25 @@ MocotoVolumeRCT::~MocotoVolumeRCT()
 {}
 
 
-G4VPhysicalVolume* MocotoVolumeRCT::GetVolume(G4LogicalVolume* motherVolume,G4Transform3D placement)
+G4VPhysicalVolume* MocotoVolumeRCT::GetVolume(G4LogicalVolume* motherVolume)
 {
-  G4Box* solidVarian = new G4Box("sVarian", 15.5/2*mm, 279.09/2*mm, 337/2*mm);
-  G4LogicalVolume* logicVarian = new G4LogicalVolume(solidVarian, matAir, "lVarian");
-  G4VPhysicalVolume* physiVarian = new G4PVPlacement(placement,
-						     logicVarian,
-						     "pVarian",
-						     motherVolume,
-						     false,
-						     0);
+  G4RotationMatrix* rot = new G4RotationMatrix();
+  G4Transform3D placement = G4Transform3D(*rot, G4ThreeVector(19*cm+15.5/2*mm, 0, 0));
+
+  solidVarian = new G4Box("sVarian", 15.5/2*mm, 279.09/2*mm, 337/2*mm);
+  logicVarian = new G4LogicalVolume(solidVarian, matAir, "lVarian");
+  physiVarian = new G4PVPlacement(placement,
+				  logicVarian,
+				  "pVarian",
+				  motherVolume,
+				  false,
+				  0);
   logicVarian->SetVisAttributes( G4VisAttributes::Invisible );
 
   G4int MergedNumber = 4;
-  G4Box* solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
-  G4LogicalVolume* logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
-  G4VPhysicalVolume* physiPixel;
+  solidPixel = new G4Box("sPixel", 3.3/2*mm, 139./2*um*MergedNumber, 139./2*um*MergedNumber);
+  logicPixel = new G4LogicalVolume(solidPixel, matCsI, "lPixel");
+  
   G4double positionx = 3.3/2*mm - 15.5/2*mm;
   G4double positiony, positionz;
   G4int CopyNumber = 0;
@@ -87,6 +88,6 @@ G4VPhysicalVolume* MocotoVolumeRCT::GetVolume(G4LogicalVolume* motherVolume,G4Tr
   }
   G4cout << CopyNumber << G4endl;
 
-  return 0;
+  return physiVarian;
 }
 

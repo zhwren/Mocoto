@@ -56,6 +56,7 @@
 #include "G4Isotope.hh"
 #include "G4SubtractionSolid.hh"
 #include "MocotoDetectorConstructionMessenger.hh"
+#include "MocotoVolumeMCT.hh"
 
 MocotoDetectorConstruction::MocotoDetectorConstruction()
   :G4VUserDetectorConstruction()
@@ -129,8 +130,11 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   if( target_d != 0 )
     target->GetDiffSizeOfTarget( target_d, logicWorld);
   
-  MakeDetectorVolume(detnumber);
-  MakeCollimatorLogical(colnumber);
+  MocotoVolumeMCT* mct = new MocotoVolumeMCT();
+  mct->GetVolume(logicWorld);
+
+//  MakeDetectorVolume(detnumber);
+//  MakeCollimatorLogical(colnumber);
 
   return physiWorld;
 }
@@ -202,8 +206,8 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
                          5.94000*mm,  4.86000*mm,  3.78000*mm,  2.70000*mm,  1.62000*mm,  0.54000*mm,
 			-0.54000*mm, -1.62000*mm, -2.70000*mm, -3.78000*mm, -4.86000*mm, -5.94000*mm,
 			-7.02000*mm, -8.10000*mm, -9.18000*mm,-10.26000*mm,-11.34000*mm,-12.36475*mm };
-  //G4Box* solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.8845*0.5*mm, 33.085*0.5*mm);
-  G4Box* solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.8845*0.5*mm, 1.915*0.5*mm);
+  G4Box* solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.8845*0.5*mm, 33.085*0.5*mm);
+  //G4Box* solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.8845*0.5*mm, 1.915*0.5*mm);
   G4LogicalVolume* logicStrip = new G4LogicalVolume(solidStrip, matCsI,"lStrip");
   G4VPhysicalVolume *physiStrip = new G4PVPlacement(0,
                                  G4ThreeVector(-0.15*mm,mdbby[0],0*mm),
@@ -223,10 +227,10 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
   G4VisAttributes* StripVisAtt = new G4VisAttributes( G4Colour(1., 1., 1.) );
   StripVisAtt->SetForceSolid(true);
   logicStrip->SetVisAttributes( StripVisAtt );
-  //MakeDetectorRowPhysical(logicStrip,0.8845);
+  MakeDetectorRowPhysical(logicStrip,0.8845);
 
-  //solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.995*0.5*mm, 33.085*mm*0.5);
-  solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.995*0.5*mm, 1.915*mm*0.5);
+  solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.995*0.5*mm, 33.085*mm*0.5);
+  //solidStrip = new G4Box("sStrip", 1.4*0.5*mm, 0.995*0.5*mm, 1.915*mm*0.5);
   logicStrip = new G4LogicalVolume(solidStrip, matCsI, "lStrip");
   for(G4int i=1;i<23;i++)
   {
@@ -240,7 +244,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::MakeDetectorLinePhysical(G4Logica
   }
   
   logicStrip->SetVisAttributes(StripVisAtt);
-  //MakeDetectorRowPhysical(logicStrip,0.995);
+  MakeDetectorRowPhysical(logicStrip,0.995);
 
   return physiStrip;
 }
