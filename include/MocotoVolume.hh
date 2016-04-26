@@ -49,6 +49,7 @@ class MocotoVolume
     G4Material* matAmber;
     G4Material* matBone;
     G4Material* matMuscle;
+    G4Material* matWolfram;
 
   private:
     void DefineMaterials();

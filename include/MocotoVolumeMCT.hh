@@ -34,6 +34,7 @@
 #include "MocotoVolume.hh"
 
 class G4Box;
+class G4Tubs;
 class G4LogicalVolume;
 class G4VPhysicalVolume;
 
@@ -44,28 +45,45 @@ class MocotoVolumeMCT : public MocotoVolume
     ~MocotoVolumeMCT();
 
   public:
-    G4VPhysicalVolume* GetVolume(G4LogicalVolume*,G4int nModule=1);
+    G4VPhysicalVolume* GetModuleVolume(G4LogicalVolume*,G4int nModule=1);
+    G4VPhysicalVolume* GetCollimatorVolume(G4LogicalVolume*,G4int nCollimator=1);
 
   private:
-    G4VPhysicalVolume* GetRowDetail();
-    G4VPhysicalVolume* GetColumnDetail();
+    G4VPhysicalVolume* GetModuleRowDetail();
+    G4VPhysicalVolume* GetModuleColumnDetail();
+    G4VPhysicalVolume* GetCollimatorSheets();
 
   private:
     G4Box*             solidModule;
     G4LogicalVolume*   logicModule;
     G4VPhysicalVolume* physiModule;
 
-    G4Box*             solidRowDetail1;
-    G4LogicalVolume*   logicRowDetail1;
-    G4VPhysicalVolume* physiRowDetail1;
-
-    G4Box*             solidRowDetail2;
-    G4LogicalVolume*   logicRowDetail2;
-    G4VPhysicalVolume* physiRowDetail2;
+    G4Box*             solidRowDetail;
+    G4LogicalVolume*   logicRowDetail;
+    G4VPhysicalVolume* physiRowDetail;
 
     G4Box*             solidColumnDetail;
     G4LogicalVolume*   logicColumnDetail;
     G4VPhysicalVolume* physiColumnDetail;
 
+    G4Tubs*            solidCollimatorTub;
+    G4LogicalVolume*   logicCollimatorTub;
+    G4VPhysicalVolume* physiCollimatorTub;
+
+    G4Box*             solidCollimator;
+    G4LogicalVolume*   logicCollimator;
+    G4VPhysicalVolume* physiCollimator;
+
+  private:
+    G4double ModuleSizeX;
+    G4double ModuleSizeY;
+    G4double ModuleSizeZ;
+    G4double ModuleRadius;
+    G4double CollimatorSizeX;
+    G4double CollimatorSizeY;
+    G4double CollimatorSizeZ;
+    G4double CollimatorCentral;
+    G4double rotateAngle;
+    G4RotationMatrix* rotate;
 };
 #endif

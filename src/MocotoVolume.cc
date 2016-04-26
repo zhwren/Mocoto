@@ -53,4 +53,5 @@ void MocotoVolume::DefineMaterials()
   matAmber = man->FindOrBuildMaterial("G4_AMBER",isotopes);
   matBone = man->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU",isotopes);
   matMuscle = man->FindOrBuildMaterial("G4_MUSCLE_WITH_SUCROSE",isotopes);
+  matWolfram = man->FindOrBuildMaterial("G4_W",isotopes);
 }
