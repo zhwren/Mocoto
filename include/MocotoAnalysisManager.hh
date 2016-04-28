@@ -73,6 +73,8 @@ class MocotoAnalysisManager
     void HitCrystal(G4int,G4double);
     void LeakCrystal(G4int,G4double);
     void DepositCrystal(G4int,G4double);
+    void PhotReactionHappened() { NbfPhot += 1; }
+    void ComptReactionHappened() { NbfCompt+=1; }
 
   private:
     typedef struct { Float_t x,y,z; } VECTOR;
@@ -96,5 +98,6 @@ class MocotoAnalysisManager
     Int_t    DepositNumber[20];
     Double_t EnergyDeposit[20];
     Int_t    NbfCompt;
+    Int_t    NbfPhot;
 };
 #endif
