@@ -44,6 +44,8 @@ void MocotoVolume::DefineMaterials()
 {
   G4NistManager* man = G4NistManager::Instance();
   G4bool isotopes = false;
+  matAl = man->FindOrBuildMaterial("G4_Al",isotopes);
+  matIron = man->FindOrBuildMaterial("G4_Fe",isotopes);
   matCsI = man->FindOrBuildMaterial("G4_CESIUM_IODIDE",isotopes);
   matWater = man->FindOrBuildMaterial("G4_WATER",isotopes);
   matAir = man->FindOrBuildMaterial("G4_AIR",isotopes);
@@ -54,4 +56,5 @@ void MocotoVolume::DefineMaterials()
   matBone = man->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU",isotopes);
   matMuscle = man->FindOrBuildMaterial("G4_MUSCLE_WITH_SUCROSE",isotopes);
   matWolfram = man->FindOrBuildMaterial("G4_W",isotopes);
+  matGOS = man->FindOrBuildMaterial("G4_GADOLINIUM_OXYSULFIDE", isotopes);
 }

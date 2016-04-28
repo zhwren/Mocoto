@@ -92,11 +92,12 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   MocotoVolumeTarget* target = new MocotoVolumeTarget();
   rotate = new G4RotationMatrix();
   rotate->rotateZ(targetRotate);
-  if( target_d != 0 ) target->GetDiffSizeOfTarget( target_d, logicWorld);
+  if( target_d != 0 ) target->GetTubsTarget(30*cm, 40*cm, logicWorld);
   
   MocotoVolumeMCT* mctdet = new MocotoVolumeMCT();
   mctdet->GetModuleVolume(logicWorld,detnumber);
   mctdet->GetCollimatorVolume(logicWorld,colnumber);
+//  mctdet->GetComptSheets(logicWorld);
 
   return physiWorld;
 }

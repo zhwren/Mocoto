@@ -84,3 +84,21 @@ G4VPhysicalVolume* MocotoVolumeTarget::GetDiffSizeOfTarget(G4int target_d, G4Log
 
   return physiTarget;
 }
+
+G4VPhysicalVolume* MocotoVolumeTarget::GetTubsTarget(G4int rMin, G4int rMax, G4LogicalVolume* motherVolume)
+{
+  solidTarget = new G4Tubs("sTarget", rMin, rMax, 15./2*cm, -40*deg, 80.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matWater, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(-240*mm,0,0),
+				  logicTarget,
+				  "pTarget",
+				  motherVolume,
+				  false,
+				  0);
+  G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(0,0,0.5) );
+  VisAtt->SetForceSolid( true );
+  logicTarget->SetVisAttributes( VisAtt );
+
+  return physiTarget;
+}

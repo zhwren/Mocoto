@@ -47,6 +47,7 @@ class MocotoVolumeMCT : public MocotoVolume
   public:
     G4VPhysicalVolume* GetModuleVolume(G4LogicalVolume*,G4int nModule=1);
     G4VPhysicalVolume* GetCollimatorVolume(G4LogicalVolume*,G4int nCollimator=1);
+    G4VPhysicalVolume* GetComptSheets(G4LogicalVolume*);
 
   private:
     G4VPhysicalVolume* GetModuleRowDetail();
@@ -73,6 +74,10 @@ class MocotoVolumeMCT : public MocotoVolume
     G4Box*             solidCollimator;
     G4LogicalVolume*   logicCollimator;
     G4VPhysicalVolume* physiCollimator;
+
+    G4Box*             solidComptSheet;
+    G4LogicalVolume*   logicComptSheet;
+    G4VPhysicalVolume* physiComptSheet;
 
   private:
     G4double ModuleSizeX;

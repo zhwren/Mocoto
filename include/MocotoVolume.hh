@@ -40,6 +40,8 @@ class G4Material;
 class MocotoVolume
 {
   protected:
+    G4Material* matAl;
+    G4Material* matIron;
     G4Material* matCsI;
     G4Material* matWater;
     G4Material* matAir;
@@ -50,6 +52,7 @@ class MocotoVolume
     G4Material* matBone;
     G4Material* matMuscle;
     G4Material* matWolfram;
+    G4Material* matGOS;
 
   private:
     void DefineMaterials();

@@ -95,5 +95,6 @@ class MocotoAnalysisManager
     Int_t    nDeposit;
     Int_t    DepositNumber[20];
     Double_t EnergyDeposit[20];
+    Int_t    NbfCompt;
 };
 #endif

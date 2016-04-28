@@ -116,7 +116,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetModuleColumnDetail()
 		  	  -7.02000*mm, -8.10000*mm, -9.18000*mm,-10.26000*mm,-11.34000*mm,-12.36475*mm };
 
   solidColumnDetail = new G4Box("sColumnDetail", 1.4/2*mm, 0.8845/2*mm, 1.915/2*mm);
-  logicColumnDetail = new G4LogicalVolume(solidColumnDetail, matCsI, "lColumnDetail");
+  logicColumnDetail = new G4LogicalVolume(solidColumnDetail, matGOS, "lColumnDetail");
   physiColumnDetail = new G4PVPlacement(0,
                                         G4ThreeVector(0, detaily[0], 0),
 					logicColumnDetail,
@@ -136,7 +136,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetModuleColumnDetail()
   logicColumnDetail->SetVisAttributes( vis );
 
   solidColumnDetail = new G4Box("sColumnDetail", 1.4/2*mm, 0.995/2*mm, 1.915/2*mm);
-  logicColumnDetail = new G4LogicalVolume(solidColumnDetail, matCsI, "lColumnDetail");
+  logicColumnDetail = new G4LogicalVolume(solidColumnDetail, matGOS, "lColumnDetail");
   logicColumnDetail->SetVisAttributes( vis );
   for(G4int i=1; i<23; i++)
   {
@@ -226,4 +226,33 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetCollimatorSheets()
   vis->SetForceSolid( true );
   logicCollimator->SetVisAttributes( vis );
   return physiCollimator;
+}
+
+G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume)
+{
+  G4double mComptSheetRadius = 450*mm;
+
+  solidComptSheet = new G4Box("sComptSheet", 10.*mm, 0.55*mm, 20.*mm);
+  logicComptSheet = new G4LogicalVolume(solidComptSheet, matIron, "lComptSheet");
+  for(G4int i=0; i<20; i++)
+  {
+    rotateAngle = (33.25-i*3.5)*deg;
+    rotate = new G4RotationMatrix();
+    rotate->rotateZ(-1*rotateAngle);
+    G4double tmpx = mComptSheetRadius*cos(rotateAngle)-24*cm;
+    G4double tmpy = mComptSheetRadius*sin(rotateAngle);
+    physiComptSheet = new G4PVPlacement(rotate,
+	                                G4ThreeVector(tmpx, tmpy, 0),
+					logicComptSheet,
+					"pComptSheet",
+					motherVolume,
+					false,
+					0);
+  }
+
+  G4VisAttributes* vis = new G4VisAttributes(G4Colour(0,1,0));
+  vis->SetForceSolid( true );
+  logicComptSheet->SetVisAttributes(vis);
+
+  return physiComptSheet;
 }
