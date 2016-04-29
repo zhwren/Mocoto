@@ -13,7 +13,7 @@
 
 /gen/particle/position -240 0 0 mm
 /gen/particle/momentumDirection 0 90 0 deg
-/gen/particle/deltaThetaPhi 0 2 1 deg
+/gen/particle/deltaThetaPhi 0 4 0 deg
 
 /run/initialize
 /control/execute vis.mac
