@@ -230,9 +230,9 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetCollimatorSheets()
 
 G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume)
 {
-  G4double mComptSheetRadius = 450*mm;
+  G4double mComptSheetRadius = 440.85*mm;
 
-  solidComptSheet = new G4Box("sComptSheet", 10.*mm, 0.55*mm, 20.*mm);
+  solidComptSheet = new G4Box("sComptSheet", 0.7*mm, 0.55*mm, 1.915/2*mm);
   logicComptSheet = new G4LogicalVolume(solidComptSheet, matIron, "lComptSheet");
   for(G4int i=0; i<20; i++)
   {
@@ -242,7 +242,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume
     G4double tmpx = mComptSheetRadius*cos(rotateAngle)-24*cm;
     G4double tmpy = mComptSheetRadius*sin(rotateAngle);
     physiComptSheet = new G4PVPlacement(rotate,
-	                                G4ThreeVector(tmpx, tmpy, 0),
+	                                G4ThreeVector(tmpx, tmpy, -1*mm),
 					logicComptSheet,
 					"pComptSheet",
 					motherVolume,
@@ -255,4 +255,22 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume
   logicComptSheet->SetVisAttributes(vis);
 
   return physiComptSheet;
+}
+
+G4VPhysicalVolume* MocotoVolumeMCT::GetTubsDetector(G4LogicalVolume* motherVolume)
+{
+  solidRowDetail = new G4Tubs("sRowDetail", 440*mm, 441.4*mm, 1.915/2*mm, -36.5*deg, 73*deg);
+  logicRowDetail = new G4LogicalVolume(solidRowDetail, matGOS, "lRowDetail");
+  physiRowDetail = new G4PVPlacement(0,
+                                     G4ThreeVector(-24*cm,0,-1*mm),
+				     logicRowDetail,
+				     "pRowDetail",
+				     motherVolume,
+				     false,
+				     0);
+
+  G4VisAttributes* vis = new G4VisAttributes( G4Colour(1,0,0) );
+  vis->SetForceSolid( true );
+  logicRowDetail->SetVisAttributes( vis );
+  return physiRowDetail;
 }

@@ -35,6 +35,7 @@
 
 class G4Box;
 class G4Tubs;
+class G4VSolid;
 class G4LogicalVolume;
 class G4VPhysicalVolume;
 
@@ -48,6 +49,7 @@ class MocotoVolumeMCT : public MocotoVolume
     G4VPhysicalVolume* GetModuleVolume(G4LogicalVolume*,G4int nModule=1);
     G4VPhysicalVolume* GetCollimatorVolume(G4LogicalVolume*,G4int nCollimator=1);
     G4VPhysicalVolume* GetComptSheets(G4LogicalVolume*);
+    G4VPhysicalVolume* GetTubsDetector(G4LogicalVolume*);
 
   private:
     G4VPhysicalVolume* GetModuleRowDetail();
@@ -59,7 +61,7 @@ class MocotoVolumeMCT : public MocotoVolume
     G4LogicalVolume*   logicModule;
     G4VPhysicalVolume* physiModule;
 
-    G4Box*             solidRowDetail;
+    G4VSolid*          solidRowDetail;
     G4LogicalVolume*   logicRowDetail;
     G4VPhysicalVolume* physiRowDetail;
 

@@ -61,17 +61,17 @@ void MocotoAnalysisManager::bookEventTree()
 {
   evtTree = new TTree("evt", "evtInfo");
   evtTree->Branch("Scattering", &nScattering, "Scattering/I");
-  evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
-  evtTree->Branch("HitNumber", HitCrystalNumber, "HitNumber[nHits]/I");
-  evtTree->Branch("HitEnergy", EnergyHitCrystal, "HitEnergy[nHits]/D");
-//  evtTree->Branch("nLeak", &nCrystalsLeak, "nLeak/I");
-//  evtTree->Branch("LeakNumber", LeakCrystalNumber, "LeakNumber[nLeak]/I");
-//  evtTree->Branch("LeakEnergy", EnergyLeakCrystal, "LeakEnergy[nLeak]/D");
-  evtTree->Branch("nEdep", &nDeposit, "nEdep/I");
-  evtTree->Branch("DepositNumber", DepositNumber, "DepositNumber[nEdep]/I");
-  evtTree->Branch("DepositEnergy", EnergyDeposit, "EnergyDeposit[nEdep]/D");
-  evtTree->Branch("NbfPhot", &NbfPhot, "NbfPhot/I");
-  evtTree->Branch("NbfCompt", &NbfCompt, "NbfCompt/I");
+//  evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
+//  evtTree->Branch("HitNumber", HitCrystalNumber, "HitNumber[nHits]/I");
+//  evtTree->Branch("HitEnergy", EnergyHitCrystal, "HitEnergy[nHits]/D");
+  evtTree->Branch("nLeak", &nCrystalsLeak, "nLeak/I");
+  evtTree->Branch("LeakNumber", LeakCrystalNumber, "LeakNumber[nLeak]/I");
+  evtTree->Branch("LeakEnergy", EnergyLeakCrystal, "LeakEnergy[nLeak]/D");
+//  evtTree->Branch("nEdep", &nDeposit, "nEdep/I");
+//  evtTree->Branch("DepositNumber", DepositNumber, "DepositNumber[nEdep]/I");
+//  evtTree->Branch("DepositEnergy", EnergyDeposit, "EnergyDeposit[nEdep]/D");
+//  evtTree->Branch("NbfPhot", &NbfPhot, "NbfPhot/I");
+//  evtTree->Branch("NbfCompt", &NbfCompt, "NbfCompt/I");
 }
 
 void MocotoAnalysisManager::BeginOfRun()

@@ -55,6 +55,10 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
     WorldSteppingAction( fStep );
   if( VolumeName=="pColumnDetail" )
     StripSteppingAction( fStep );
+  if( VolumeName != "pRowDetail" ) return;
+  analysis->SetifFill( true );
+  if( fStep->IsLastStepInVolume() )
+    analysis->LeakCrystal(0, fTrack->GetKineticEnergy() );
 }
 
 void MocotoSteppingAction::TargetSteppingAction(const G4Step* fStep)
