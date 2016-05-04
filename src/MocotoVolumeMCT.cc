@@ -233,7 +233,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume
   G4double mComptSheetRadius = 440.85*mm;
 
   solidComptSheet = new G4Box("sComptSheet", 0.7*mm, 0.55*mm, 1.915/2*mm);
-  logicComptSheet = new G4LogicalVolume(solidComptSheet, matIron, "lComptSheet");
+  logicComptSheet = new G4LogicalVolume(solidComptSheet, matGOS, "lComptSheet");
   for(G4int i=0; i<20; i++)
   {
     rotateAngle = (33.25-i*3.5)*deg;
