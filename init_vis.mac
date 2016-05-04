@@ -5,7 +5,7 @@
 /det/collimator/Number 21
 
 /det/target/position 0 0 0 mm
-/det/target/diameter 1 cm
+/det/target/diameter 0 cm
 /det/target/rotateAngle 180 deg
 
 /gen/particle gamma

@@ -259,15 +259,21 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume
 
 G4VPhysicalVolume* MocotoVolumeMCT::GetTubsDetector(G4LogicalVolume* motherVolume)
 {
-  solidRowDetail = new G4Tubs("sRowDetail", 440*mm, 441.4*mm, 1.915/2*mm, -36.5*deg, 73*deg);
+  solidRowDetail = new G4Tubs("sRowDetail", 440*mm, 441.4*mm, 1.915/2*mm, -0.0703*deg, 0.1406*deg);
   logicRowDetail = new G4LogicalVolume(solidRowDetail, matGOS, "lRowDetail");
-  physiRowDetail = new G4PVPlacement(0,
-                                     G4ThreeVector(-24*cm,0,-1*mm),
-				     logicRowDetail,
-				     "pRowDetail",
-				     motherVolume,
-				     false,
-				     0);
+  for(G4int i=0; i<524; i++)
+  {
+    rotateAngle = (i-261.5)*0.1406*deg;
+    rotate = new G4RotationMatrix();
+    rotate->rotateZ(-1*rotateAngle);
+    physiRowDetail = new G4PVPlacement(rotate,
+                                       G4ThreeVector(-24*cm,0,-1*mm),
+				       logicRowDetail,
+				       "pRowDetail",
+				       motherVolume,
+				       false,
+				       i);
+  }
 
   G4VisAttributes* vis = new G4VisAttributes( G4Colour(1,0,0) );
   vis->SetForceSolid( true );
