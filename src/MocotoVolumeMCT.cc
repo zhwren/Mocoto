@@ -93,7 +93,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetModuleRowDetail()
 {
   solidRowDetail = new G4Box("sRowDetail", 1.4/2*mm, ModuleSizeY/2, 1.915/2*mm);
   logicRowDetail = new G4LogicalVolume(solidRowDetail, matAir, "lRowDetail");
-  for(G4int i=8; i<9; i++)
+  for(G4int i=0; i<16; i++)
   {
     physiRowDetail = new G4PVPlacement(0,
 	                               G4ThreeVector(-0.15*mm, 0, (15-i*2)*mm),
@@ -184,7 +184,8 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetCollimatorVolume(G4LogicalVolume* motherV
 					     0);
     }
   }
-  logicCollimatorTub->SetVisAttributes( G4VisAttributes::Invisible );
+  G4VisAttributes* vis = new G4VisAttributes( G4Colour(0,0,1) );
+  logicCollimatorTub->SetVisAttributes( vis );
 
   GetCollimatorSheets();
   return physiCollimatorTub;
@@ -259,16 +260,21 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetComptSheets(G4LogicalVolume* motherVolume
 
 G4VPhysicalVolume* MocotoVolumeMCT::GetTubsDetector(G4LogicalVolume* motherVolume)
 {
-  solidRowDetail = new G4Tubs("sRowDetail", 440*mm, 441.4*mm, 1.915/2*mm, -0.0703*deg, 0.1406*deg);
+  solidRowDetail = new G4Tubs("sRowDetail", 440*mm, 441.4*mm, 19.15/2*mm, -0.0703*deg, 0.1406*deg);
   logicRowDetail = new G4LogicalVolume(solidRowDetail, matGOS, "lRowDetail");
+  G4LogicalVolume* logicRowDetail1 = new G4LogicalVolume(solidRowDetail, matGOS, "lRowDetail");
   for(G4int i=0; i<524; i++)
   {
+    G4LogicalVolume* logicVolume;
+    if( i%2 == 0 ) logicVolume = logicRowDetail;
+    else logicVolume = logicRowDetail1;
+
     rotateAngle = (i-261.5)*0.1406*deg;
     rotate = new G4RotationMatrix();
     rotate->rotateZ(-1*rotateAngle);
     physiRowDetail = new G4PVPlacement(rotate,
                                        G4ThreeVector(-24*cm,0,0*mm),
-				       logicRowDetail,
+				       logicVolume,
 				       "pRowDetail",
 				       motherVolume,
 				       false,
@@ -278,5 +284,9 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetTubsDetector(G4LogicalVolume* motherVolum
   G4VisAttributes* vis = new G4VisAttributes( G4Colour(1,0,0) );
   vis->SetForceSolid( true );
   logicRowDetail->SetVisAttributes( vis );
+
+  vis = new G4VisAttributes( G4Colour(0,1,0) );
+  vis->SetForceSolid( true );
+  logicRowDetail1->SetVisAttributes( vis );
   return physiRowDetail;
 }

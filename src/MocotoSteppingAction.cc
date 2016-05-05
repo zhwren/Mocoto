@@ -53,7 +53,7 @@ void MocotoSteppingAction::UserSteppingAction(const G4Step* fStep)
     TargetSteppingAction( fStep );
   if( VolumeName=="pWorld" )
     WorldSteppingAction( fStep );
-  if( VolumeName=="pRowDetail" )
+  if( VolumeName=="pColumnDetail" )
     StripSteppingAction( fStep );
 }
 
@@ -74,10 +74,10 @@ void MocotoSteppingAction::WorldSteppingAction(const G4Step* fStep)
 void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
 {
   G4int column = fTrack->GetTouchable()->GetCopyNumber(0);
-//  G4int row    = fTrack->GetTouchable()->GetCopyNumber(1);
-//  G4int detec  = fTrack->GetTouchable()->GetCopyNumber(2);
+  G4int row    = fTrack->GetTouchable()->GetCopyNumber(1);
+  G4int detec  = fTrack->GetTouchable()->GetCopyNumber(2);
   analysis->SetifFill( true );
-  analysis->DepositCrystal(column, fStep->GetTotalEnergyDeposit() );
+  analysis->DepositCrystal(row*504+detec*24+column, fStep->GetTotalEnergyDeposit() );
   
   G4String processName = "";
 
@@ -90,7 +90,7 @@ void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
     const vector<const G4Track*>* secondary = fStep->GetSecondaryInCurrentStep();
     for(size_t lp=0; lp<(*secondary).size(); lp++)
       secondE += (*secondary)[lp]->GetKineticEnergy();
-    analysis->HitCrystal(column, secondE );
+    analysis->HitCrystal(row*504+detec*24+column, secondE );
   }
   if( processName == "phot" ) analysis->PhotReactionHappened();
   if( processName=="compt"||processName=="Rayl" ) analysis->ComptReactionHappened();
