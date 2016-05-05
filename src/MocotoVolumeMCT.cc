@@ -267,7 +267,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetTubsDetector(G4LogicalVolume* motherVolum
     rotate = new G4RotationMatrix();
     rotate->rotateZ(-1*rotateAngle);
     physiRowDetail = new G4PVPlacement(rotate,
-                                       G4ThreeVector(-24*cm,0,-1*mm),
+                                       G4ThreeVector(-24*cm,0,0*mm),
 				       logicRowDetail,
 				       "pRowDetail",
 				       motherVolume,

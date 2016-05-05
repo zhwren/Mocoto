@@ -94,5 +94,4 @@ void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
   }
   if( processName == "phot" ) analysis->PhotReactionHappened();
   if( processName=="compt"||processName=="Rayl" ) analysis->ComptReactionHappened();
-  G4cout << processName << "  " << column << G4endl;
 }
