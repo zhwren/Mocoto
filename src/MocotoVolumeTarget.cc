@@ -46,12 +46,12 @@ G4VPhysicalVolume* MocotoVolumeTarget::GetPhantomVolume(G4LogicalVolume* motherV
 {
   solidTarget = new G4Tubs("sTarget", 0, 8.*cm, 15./2*cm, 0, 360.*deg);
   solidHolder = new G4Tubs("sHolder", 0, 1.3/2*cm, 15*cm, 0, 360.*deg);
-  solidTarget = new G4SubtractionSolid("sTarget", solidHolder, solidTarget);
+  solidTarget = new G4SubtractionSolid("sTarget", solidTarget, solidHolder);
   G4RotationMatrix* rot = new G4RotationMatrix();
-  solidHolder = new G4SubtractionSolid("sTarget", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(6.5*cm,0,0)));
-  solidHolder = new G4SubtractionSolid("sTarget", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(-6.5*cm,0,0)));
-  solidHolder = new G4SubtractionSolid("sTarget", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(0,6.5*cm,0)));
-  solidHolder = new G4SubtractionSolid("sTarget", solidHolder, solidTarget, G4Transform3D(*rot, G4ThreeVector(0,-6.5*cm,0)));
+  solidTarget = new G4SubtractionSolid("sTarget", solidTarget, solidHolder, G4Transform3D(*rot, G4ThreeVector(6.5*cm,0,0)));
+  solidTarget = new G4SubtractionSolid("sTarget", solidTarget, solidHolder, G4Transform3D(*rot, G4ThreeVector(-6.5*cm,0,0)));
+  solidTarget = new G4SubtractionSolid("sTarget", solidTarget, solidHolder, G4Transform3D(*rot, G4ThreeVector(0,6.5*cm,0)));
+  solidTarget = new G4SubtractionSolid("sTarget", solidTarget, solidHolder, G4Transform3D(*rot, G4ThreeVector(0,-6.5*cm,0)));
   
   logicTarget = new G4LogicalVolume(solidTarget, matWater, "lTarget");
   physiTarget = new G4PVPlacement(placement,
