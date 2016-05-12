@@ -91,7 +91,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
   G4RotationMatrix *rotate = new G4RotationMatrix();
   MocotoVolumeTarget* target = new MocotoVolumeTarget();
   rotate->rotateZ(targetRotate);
-  if( target_d != 0 ) target->GetPhantomVolume( logicWorld, G4Transform3D(*rotate, position));
+  if( target_d != 0 ) target->GetDiffSizeOfTarget( target_d, logicWorld );
   
   MocotoVolumeMCT* mctdet = new MocotoVolumeMCT();
   mctdet->GetModuleVolume(logicWorld,detnumber);
