@@ -50,8 +50,8 @@ MocotoEventAction::~MocotoEventAction()
 
 void MocotoEventAction::BeginOfEventAction(const G4Event* anEvent)
 {
-//  if(anEvent->GetEventID()%2500==0)
-  G4cout << "Begin Of Event ---> " << anEvent->GetEventID() << G4endl;
+  if(anEvent->GetEventID()%2500==0)
+    G4cout << "Begin Of Event ---> " << anEvent->GetEventID() << G4endl;
   MocotoAnalysisManager::getInstance()->BeginOfEvent();
   MocotoAnalysisManager::getInstance()->SetEventID(anEvent->GetEventID());
 }
