@@ -7,7 +7,7 @@
 #* Discription  :                                           *
 #************************************************************
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6 FATAL_ERROR)
-PROJECT(Reconstruct)
+PROJECT(Root2Binary.exe)
 FIND_PACKAGE(Geant4 REQUIRED)
 INCLUDE(${Geant4_USE_FILE})
 FIND_PACKAGE(ROOT REQUIRED)
@@ -16,6 +16,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include
 		    ${ROOT_INCLUDE_DIR})
 FILE(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 FILE(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
-ADD_EXECUTABLE(Reconstruct main.cc ${sources} ${headers})
-TARGET_LINK_LIBRARIES(Reconstruct ${ROOT_LIBRARIES} ${Geant4_LIBRARIES})
+SET(EXECUTABLE_OUTPUT_PATH /home/zhwren/Workfs/geant4_workdir/bin/Linux-g++/)
+ADD_EXECUTABLE(Root2Binary.exe main.cc ${sources} ${headers})
+TARGET_LINK_LIBRARIES(Root2Binary.exe ${ROOT_LIBRARIES} ${Geant4_LIBRARIES})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow -std=c++11")

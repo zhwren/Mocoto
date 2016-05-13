@@ -22,19 +22,37 @@
 *             Buddha bless me, No bug forever              *
 ************************************************************
 *    >  CopyRight   :                                      *
-*    >  File Name   : main.cc
+*    >  File Name   : MctSimulation.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-05-13 10:10                     *
+*    >  Created Time: 2016-05-13 10:08                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#include "MctSimulation.hh"
+#ifndef MctSimulation_h
+#define MctSimulation_h 1
 
-int main()
+#include "TFile.h"
+#include "TTree.h"
+#include "TString.h"
+
+class MctSimulation
 {
-  MctSimulation* ringArtifical = new MctSimulation("/home/zhwren/Root");
-  float* mScanData = ringArtifical->GetScanDataImage();
-  float* mAirScan  = ringArtifical->GetAirScanImage();
-  float* mDarkImg  = ringArtifical->GetDarkImage();
-  return 1;
-}
+    private:
+        TFile* file;
+        TTree* tree;
+	TString path;
+	Float_t* mScanData;
+  
+    public:
+        MctSimulation(TString);
+        ~MctSimulation();
+	Float_t* GetScanDataImage();
+	Float_t* GetAirScanImage();
+	Float_t* GetDarkImage();
+
+    private:
+        void Root2Binary(bool sino=true);
+	void AnalysisSingleFile(Int_t);
+};
+
+#endif
