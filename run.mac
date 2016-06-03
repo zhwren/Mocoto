@@ -1,12 +1,12 @@
-#/control/verbose 2
-#/tracking/verbose 2
+/control/verbose 2
+/tracking/verbose 2
 
 /histo/fileName test.root
 
 /det/detector/Number 21
 /det/collimator/Number 21
 
-/det/target/diameter 10 cm
+/det/target/diameter 20 cm
 /det/target/rotateAngle 0 deg
 /det/target/position 0 0 0 cm
 
@@ -18,4 +18,4 @@
 /gen/particle/position -24 0 0 cm
 
 /run/initialize
-/run/beamOn 1000000
+/run/beamOn 10000

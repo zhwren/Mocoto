@@ -1,12 +1,12 @@
 /control/verbose 2
 /run/verbose 2
 
-/det/detector/Number 0
-/det/collimator/Number 0
+/det/detector/Number 21
+/det/collimator/Number 21
 
 /det/target/position 0 0 0 mm
 /det/target/diameter 20 cm
-/det/target/rotateAngle 30 deg
+/det/target/rotateAngle 0 deg
 
 /gen/particle gamma
 /gen/particle/energy 100 keV
