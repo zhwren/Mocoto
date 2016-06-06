@@ -77,21 +77,22 @@ void MocotoSteppingAction::StripSteppingAction(const G4Step* fStep)
   G4int row    = fTrack->GetTouchable()->GetCopyNumber(1);
   G4int detec  = fTrack->GetTouchable()->GetCopyNumber(2);
   analysis->SetifFill( true );
-  analysis->DepositCrystal(row*504+detec*24+column, fStep->GetTotalEnergyDeposit() );
+  analysis->DepositCrystal(row*504+detec*24+column, fTrack->GetKineticEnergy() );//fStep->GetTotalEnergyDeposit() );
+  fTrack->SetTrackStatus( fStopAndKill );
   
-  G4String processName = "";
-
-  if( particleName=="gamma" && fStep->IsFirstStepInVolume() )
-  {
-    const G4VProcess* process = fStep->GetPostStepPoint()->GetProcessDefinedStep();
-    processName = process->GetProcessName();
-
-    G4double secondE = fTrack->GetKineticEnergy()+fStep->GetTotalEnergyDeposit();
-    const vector<const G4Track*>* secondary = fStep->GetSecondaryInCurrentStep();
-    for(size_t lp=0; lp<(*secondary).size(); lp++)
-      secondE += (*secondary)[lp]->GetKineticEnergy();
-    analysis->HitCrystal(row*504+detec*24+column, secondE );
-  }
-  if( processName == "phot" ) analysis->PhotReactionHappened();
-  if( processName=="compt"||processName=="Rayl" ) analysis->ComptReactionHappened();
+//  G4String processName = "";
+//
+//  if( particleName=="gamma" && fStep->IsFirstStepInVolume() )
+//  {
+//    const G4VProcess* process = fStep->GetPostStepPoint()->GetProcessDefinedStep();
+//    processName = process->GetProcessName();
+//
+//    G4double secondE = fTrack->GetKineticEnergy()+fStep->GetTotalEnergyDeposit();
+//    const vector<const G4Track*>* secondary = fStep->GetSecondaryInCurrentStep();
+//    for(size_t lp=0; lp<(*secondary).size(); lp++)
+//      secondE += (*secondary)[lp]->GetKineticEnergy();
+//    analysis->HitCrystal(row*504+detec*24+column, secondE );
+//  }
+//  if( processName == "phot" ) analysis->PhotReactionHappened();
+//  if( processName=="compt"||processName=="Rayl" ) analysis->ComptReactionHappened();
 }
