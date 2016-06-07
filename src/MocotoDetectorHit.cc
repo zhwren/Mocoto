@@ -1,4 +1,6 @@
 /***********************************************************
+*                                                          *
+*                                                          *
 *                         _ooOoo_                          *
 *                        o8888888o                         *
 *                        88" . "88                         *
@@ -18,53 +20,36 @@
 *      ======`-.____`-.___\_____/___.-`____.-'======       *
 *                         `=---='                          *
 *                                                          *
+*                                                          *
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoVolume.hh
+*    >  CopyRight   :                                      *
+*    >  File Name   : MocotoDetectorHit.cc
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 16:34                     *
+*    >  Created Time: 2016-06-07 10:30                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef MocotoVolume_h
-#define MocotoVolume_h 1
+#include "MocotoDetectorHit.hh"
 
-#include "G4PVPlacement.hh"
-#include "G4VPhysicalVolume.hh"
-#include "G4LogicalVolume.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4Transform3D.hh"
-#include "MocotoDetectorSD.hh"
-#include "G4SDManager.hh"
-class G4Material;
+G4Allocator<MocotoDetectorHit> MocotoDetectorHitAllocator;
 
-class MocotoVolume
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+MocotoDetectorHit::MocotoDetectorHit() 
 {
-  protected:
-    G4Material* matAl;
-    G4Material* matIron;
-    G4Material* matCsI;
-    G4Material* matWater;
-    G4Material* matAir;
-    G4Material* matBlood;
-    G4Material* matBrain;
-    G4Material* matAdiposeTissue;
-    G4Material* matAmber;
-    G4Material* matBone;
-    G4Material* matMuscle;
-    G4Material* matWolfram;
-    G4Material* matGOS;
-    G4SDManager* SDman;
-    MocotoDetectorSD* aDetectorSD;
+}
 
-  private:
-    void DefineMaterials();
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-  public:
-    MocotoVolume();
-    ~MocotoVolume();
+MocotoDetectorHit::~MocotoDetectorHit() {}
 
-};
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#endif
+void MocotoDetectorHit::ScatterCount(const G4VProcess* aProcess)
+{
+  G4String pName = aProcess ? (aProcess->GetProcessName()) : "";
+  if( pName=="Rayl" || pName=="compt" )
+    m_Scatter++;
+}

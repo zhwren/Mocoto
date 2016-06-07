@@ -1,4 +1,6 @@
 /***********************************************************
+*                                                          *
+*                                                          *
 *                         _ooOoo_                          *
 *                        o8888888o                         *
 *                        88" . "88                         *
@@ -18,53 +20,37 @@
 *      ======`-.____`-.___\_____/___.-`____.-'======       *
 *                         `=---='                          *
 *                                                          *
+*                                                          *
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoVolume.hh
+*    >  CopyRight   :                                      *
+*    >  File Name   : MocotoDetectorSD.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 16:34                     *
+*    >  Created Time: 2016-06-07 10:34                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef MocotoVolume_h
-#define MocotoVolume_h 1
+#ifndef MocotoDetectorSD_h
+#define MocotoDetectorSD_h 1
 
-#include "G4PVPlacement.hh"
-#include "G4VPhysicalVolume.hh"
-#include "G4LogicalVolume.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4Transform3D.hh"
-#include "MocotoDetectorSD.hh"
-#include "G4SDManager.hh"
-class G4Material;
+#include "G4VSensitiveDetector.hh"
+#include "G4Step.hh"
+#include "MocotoDetectorHit.hh"
 
-class MocotoVolume
+class MocotoDetectorSD : public G4VSensitiveDetector
 {
-  protected:
-    G4Material* matAl;
-    G4Material* matIron;
-    G4Material* matCsI;
-    G4Material* matWater;
-    G4Material* matAir;
-    G4Material* matBlood;
-    G4Material* matBrain;
-    G4Material* matAdiposeTissue;
-    G4Material* matAmber;
-    G4Material* matBone;
-    G4Material* matMuscle;
-    G4Material* matWolfram;
-    G4Material* matGOS;
-    G4SDManager* SDman;
-    MocotoDetectorSD* aDetectorSD;
+  public:
+    MocotoDetectorSD(G4String);
+    ~MocotoDetectorSD();
+
+    void Initialize(G4HCofThisEvent*);
+    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
+    void EndOfEvent(G4HCofThisEvent*);
 
   private:
-    void DefineMaterials();
-
-  public:
-    MocotoVolume();
-    ~MocotoVolume();
-
+    MocotoDetectorHitCollection* MocotoCollection;
+    bool iftrig;
 };
 
 #endif

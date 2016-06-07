@@ -61,17 +61,6 @@ void MocotoAnalysisManager::bookEventTree()
 {
   evtTree = new TTree("evt", "evtInfo");
   evtTree->Branch("Scattering", &nScattering, "Scattering/I");
-//  evtTree->Branch("nHits", &nCrystalsHit, "nHits/I");
-//  evtTree->Branch("HitNumber", HitCrystalNumber, "HitNumber[nHits]/I");
-//  evtTree->Branch("HitEnergy", EnergyHitCrystal, "HitEnergy[nHits]/D");
-//  evtTree->Branch("nLeak", &nCrystalsLeak, "nLeak/I");
-//  evtTree->Branch("LeakNumber", LeakCrystalNumber, "LeakNumber[nLeak]/I");
-//  evtTree->Branch("LeakEnergy", EnergyLeakCrystal, "LeakEnergy[nLeak]/D");
-  evtTree->Branch("nEdep", &nDeposit, "nEdep/I");
-  evtTree->Branch("DepositNumber", DepositNumber, "DepositNumber[nEdep]/I");
-  evtTree->Branch("DepositEnergy", EnergyDeposit, "EnergyDeposit[nEdep]/D");
-//  evtTree->Branch("NbfPhot", &NbfPhot, "NbfPhot/I");
-//  evtTree->Branch("NbfCompt", &NbfCompt, "NbfCompt/I");
 }
 
 void MocotoAnalysisManager::BeginOfRun()
@@ -89,38 +78,16 @@ void MocotoAnalysisManager::EndOfRun()
 
 void MocotoAnalysisManager::BeginOfEvent()
 {
-  edep.clear();
   nCpmpt        = 0;
   nRayle        = 0;
-  NbfPhot       = 0;
-  NbfCompt      = 0;
-  nDeposit      = 0;
   nScattering   = 0;
-  nCrystalsHit  = 0;
-  nCrystalsLeak = 0;
   m_ifFill      = false;
-  for(int i=0; i<20; i++)
-  {
-    DepositNumber[i]    = 0;
-    EnergyDeposit[i]    = 0;
-    HitCrystalNumber[i] = 0;
-    EnergyHitCrystal[i] = 0;
-    LeakCrystalNumber[i]= 0;
-    EnergyLeakCrystal[i]= 0;
-  }
 }
 
 void MocotoAnalysisManager::EndOfEvent()
 {
-  map<G4int,G4double>::iterator it;
-  for(it=edep.begin(); it!=edep.end(); it++)
-  {
-    DepositNumber[nDeposit] = it->first;
-    EnergyDeposit[nDeposit] = it->second;
-    nDeposit++;
-  }
-
-  if( m_ifFill )  evtTree->Fill();
+  if( m_ifFill )
+    evtTree->Fill();
 }
 
 void MocotoAnalysisManager::SetProcess(G4String name)
@@ -135,23 +102,4 @@ void MocotoAnalysisManager::SetPrimaryInfomation(Double_t m_energy, Double_t m_t
   primary.x = Float_t( m_energy );
   primary.y = Float_t( m_theta*180/3.141592);
   primary.z = Float_t( m_phi*180/3.141592);
-}
-
-void MocotoAnalysisManager::HitCrystal(G4int number,G4double energy)
-{
-  HitCrystalNumber[nCrystalsHit] = number;
-  EnergyHitCrystal[nCrystalsHit] = energy;
-  nCrystalsHit++;
-}
-
-void MocotoAnalysisManager::LeakCrystal(G4int number,G4double energy)
-{
-  LeakCrystalNumber[nCrystalsLeak] = number;
-  EnergyLeakCrystal[nCrystalsLeak] = energy;
-  nCrystalsLeak++;
-}
-
-void MocotoAnalysisManager::DepositCrystal(G4int number,G4double energy)
-{
-  edep[number] += energy;
 }

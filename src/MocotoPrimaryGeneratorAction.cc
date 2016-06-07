@@ -33,7 +33,6 @@
 #define PI 3.141592653589793238462643383279502884L
 #endif
 
-#include "MocotoAnalysisManager.hh"
 #include "MocotoPrimaryGeneratorAction.hh"
 #include "MocotoPrimaryGeneratorMessenger.hh"
 
@@ -55,7 +54,6 @@ MocotoPrimaryGeneratorAction::MocotoPrimaryGeneratorAction()
   particleEnergy = 100*keV;
   position = G4ThreeVector(0,0,0);
   momentumDirection = G4ThreeVector(1,0,0);
-  analysis = MocotoAnalysisManager::getInstance();
   fParticleGun = new G4ParticleGun( nofParticles );
   particleTable = G4ParticleTable::GetParticleTable();
   messenger = new MocotoPrimaryGeneratorMessenger(this);
@@ -92,7 +90,6 @@ G4ThreeVector MocotoPrimaryGeneratorAction::ParticleMomentum()
   G4double p_x = sin( theta ) * cos( phi );
   G4double p_y = sin( theta ) * sin( phi );
   G4double p_z = cos( theta );
-  analysis->SetPrimaryInfomation(particleEnergy, theta, phi);
   return G4ThreeVector(p_x, p_y, p_z);
 }
 

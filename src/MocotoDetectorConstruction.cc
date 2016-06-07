@@ -53,6 +53,7 @@
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 #include "MocotoDetectorConstructionMessenger.hh"
+#include "MocotoDetectorSD.hh"
 
 MocotoDetectorConstruction::MocotoDetectorConstruction()
   :G4VUserDetectorConstruction()
@@ -87,6 +88,10 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 false,
                         	 999);
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
+  G4SDManager* SDman = G4SDManager::GetSDMpointer();
+  MocotoDetectorSD* aDetectorSD = new MocotoDetectorSD("MocotoSD");
+  SDman->AddNewDetector( aDetectorSD );
+  logicWorld->SetSensitiveDetector( aDetectorSD );
 
   G4RotationMatrix *rotate = new G4RotationMatrix();
   MocotoVolumeTarget* target = new MocotoVolumeTarget();

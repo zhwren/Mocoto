@@ -81,6 +81,7 @@ G4VPhysicalVolume* MocotoVolumeTarget::GetDiffSizeOfTarget(G4int target_d, G4Log
   G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(0.5,0.5,0.5) );
   VisAtt->SetForceSolid( true );
   logicTarget->SetVisAttributes( VisAtt );
+  logicTarget->SetSensitiveDetector( aDetectorSD );
 
   return physiTarget;
 }

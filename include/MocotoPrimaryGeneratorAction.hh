@@ -42,7 +42,6 @@ class G4Event;
 class G4ParticleGun;
 class G4ParticleTable;
 class G4ParticleDefinition;
-class MocotoAnalysisManager;
 class MocotoPrimaryGeneratorMessenger;
 
 class MocotoPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
@@ -61,7 +60,6 @@ class MocotoPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
     G4ParticleDefinition*   particle;
     G4ParticleTable*        particleTable;
     G4ThreeVector           momentumDirection;
-    MocotoAnalysisManager*           analysis;
     MocotoPrimaryGeneratorMessenger* messenger;
     G4ThreeVector                    generateDelteAngle;
   public:

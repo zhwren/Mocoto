@@ -70,15 +70,9 @@ class MocotoAnalysisManager
     void SetifFill(bool i) { m_ifFill = i; }
     void SetProcess(G4String name);
     void SetPrimaryInfomation(Double_t,Double_t,Double_t);
-    void HitCrystal(G4int,G4double);
-    void LeakCrystal(G4int,G4double);
-    void DepositCrystal(G4int,G4double);
-    void PhotReactionHappened() { NbfPhot += 1; }
-    void ComptReactionHappened() { NbfCompt+=1; }
 
   private:
     typedef struct { Float_t x,y,z; } VECTOR;
-    map<G4int,G4double> edep;
     TFile*   newFile;
     TTree*   evtTree;
     TString  filename;
@@ -88,16 +82,5 @@ class MocotoAnalysisManager
     Int_t    nRayle;
     Int_t    nScattering;
     VECTOR   primary,position;
-    Int_t    nCrystalsHit;
-    Int_t    nCrystalsLeak;
-    Int_t    HitCrystalNumber[20];
-    Double_t EnergyHitCrystal[20];
-    Int_t    LeakCrystalNumber[20];
-    Double_t EnergyLeakCrystal[20];
-    Int_t    nDeposit;
-    Int_t    DepositNumber[20];
-    Double_t EnergyDeposit[20];
-    Int_t    NbfCompt;
-    Int_t    NbfPhot;
 };
 #endif

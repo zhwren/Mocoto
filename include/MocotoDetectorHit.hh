@@ -1,4 +1,6 @@
 /***********************************************************
+*                                                          *
+*                                                          *
 *                         _ooOoo_                          *
 *                        o8888888o                         *
 *                        88" . "88                         *
@@ -18,53 +20,59 @@
 *      ======`-.____`-.___\_____/___.-`____.-'======       *
 *                         `=---='                          *
 *                                                          *
+*                                                          *
 *      .............................................       *
 *             Buddha bless me, No bug forever              *
 ************************************************************
-*    >  File Name   : MocotoVolume.hh
+*    >  CopyRight   :                                      *
+*    >  File Name   : MocotoDetectorHit.hh
 *    >  Author      : zhuhaiwen                            *
 *    >  mail        : zhwren0211@whu.edu.cn                *
-*    >  Created Time: 2016-02-17 16:34                     *
+*    >  Created Time: 2016-06-07 10:24                     *
 *    >  PhoneNumber : 18625272373                          *
 ***********************************************************/
-#ifndef MocotoVolume_h
-#define MocotoVolume_h 1
+#ifndef MocotoDetectorHit_h
+#define MocotoDetectorHit_h 1
 
-#include "G4PVPlacement.hh"
-#include "G4VPhysicalVolume.hh"
-#include "G4LogicalVolume.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4Transform3D.hh"
-#include "MocotoDetectorSD.hh"
-#include "G4SDManager.hh"
-class G4Material;
+#include "G4VHit.hh"
+#include "G4VProcess.hh"
+#include "G4THitsCollection.hh"
+#include "G4Allocator.hh"
 
-class MocotoVolume
+class MocotoDetectorHit : public G4VHit
 {
-  protected:
-    G4Material* matAl;
-    G4Material* matIron;
-    G4Material* matCsI;
-    G4Material* matWater;
-    G4Material* matAir;
-    G4Material* matBlood;
-    G4Material* matBrain;
-    G4Material* matAdiposeTissue;
-    G4Material* matAmber;
-    G4Material* matBone;
-    G4Material* matMuscle;
-    G4Material* matWolfram;
-    G4Material* matGOS;
-    G4SDManager* SDman;
-    MocotoDetectorSD* aDetectorSD;
+  public:
+    MocotoDetectorHit();
+    ~MocotoDetectorHit();
 
-  private:
-    void DefineMaterials();
+    inline void* operator new(size_t);
+    inline void  operator delete(void*);
 
   public:
-    MocotoVolume();
-    ~MocotoVolume();
-
+    void ScatterCount(const G4VProcess*);
+    G4int GetScattering() { return m_Scatter; }
+  private:
+    G4int m_Scatter;
 };
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+typedef G4THitsCollection<MocotoDetectorHit> MocotoDetectorHitCollection;
+
+extern G4Allocator<MocotoDetectorHit> MocotoDetectorHitAllocator;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void* MocotoDetectorHit::operator new(size_t)
+{
+  void* aHit;
+  aHit = (void*) MocotoDetectorHitAllocator.MallocSingle();
+  return aHit;
+}
+
+inline void MocotoDetectorHit::operator delete(void* aHit)
+{
+  MocotoDetectorHitAllocator.FreeSingle( (MocotoDetectorHit*) aHit );
+}
 
 #endif
