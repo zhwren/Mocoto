@@ -89,7 +89,7 @@ G4VPhysicalVolume* MocotoDetectorConstruction::Construct()
                         	 999);
   //logicWorld->SetVisAttributes( G4VisAttributes::Invisible );
   G4SDManager* SDman = G4SDManager::GetSDMpointer();
-  MocotoDetectorSD* aDetectorSD = new MocotoDetectorSD("MocotoSD");
+  MocotoDetectorSD* aDetectorSD = MocotoDetectorSD::getInstance();
   SDman->AddNewDetector( aDetectorSD );
   logicWorld->SetSensitiveDetector( aDetectorSD );
 

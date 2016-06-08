@@ -138,6 +138,7 @@ G4VPhysicalVolume* MocotoVolumeMCT::GetModuleColumnDetail()
   solidColumnDetail = new G4Box("sColumnDetail", 1.4/2*mm, 0.995/2*mm, 1.915/2*mm);
   logicColumnDetail = new G4LogicalVolume(solidColumnDetail, matGOS, "lColumnDetail");
   logicColumnDetail->SetVisAttributes( vis );
+  logicColumnDetail->SetSensitiveDetector( aDetectorSD );
   for(G4int i=1; i<23; i++)
   {
     physiColumnDetail = new G4PVPlacement(0,

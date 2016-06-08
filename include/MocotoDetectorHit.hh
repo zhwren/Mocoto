@@ -48,10 +48,19 @@ class MocotoDetectorHit : public G4VHit
     inline void* operator new(size_t);
     inline void  operator delete(void*);
   public:
-    void SetN(G4int i) { m_i = i; }
+    void SetProcessName(G4String);
+    G4String GetProcessName() { return m_ProcessName; }
+
+    void SetEdep(G4double i) { m_Edep = i; }
+    G4double GetEdep() { return m_Edep; }
+
+    void SetDetNumber(G4int i) { m_DetNumber = i; }
+    G4int GetDetNumber() { return m_DetNumber; }
 
   private:
-    G4int m_i;
+    G4double m_Edep;
+    G4int m_DetNumber;
+    G4String m_ProcessName;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

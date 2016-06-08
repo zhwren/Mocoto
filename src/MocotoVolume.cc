@@ -36,7 +36,7 @@ MocotoVolume::MocotoVolume()
 {
   DefineMaterials();
   SDman = G4SDManager::GetSDMpointer();
-  aDetectorSD = new MocotoDetectorSD("MocotoSD");
+  aDetectorSD = MocotoDetectorSD::getInstance();
   SDman->AddNewDetector( aDetectorSD );
 }
 

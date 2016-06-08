@@ -38,10 +38,19 @@ G4Allocator<MocotoDetectorHit> MocotoDetectorHitAllocator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MocotoDetectorHit::MocotoDetectorHit() 
-{}
+{
+  m_Edep = 0;
+  m_DetNumber = 0;
+  m_ProcessName = "";
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MocotoDetectorHit::~MocotoDetectorHit() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MocotoDetectorHit::SetProcessName(G4String name)
+{
+  m_ProcessName = name;
+}

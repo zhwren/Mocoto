@@ -61,6 +61,9 @@ void MocotoAnalysisManager::bookEventTree()
 {
   evtTree = new TTree("evt", "evtInfo");
   evtTree->Branch("Scattering", &nScattering, "Scattering/I");
+  evtTree->Branch("nStep", &nStep, "nStep/I");
+  evtTree->Branch("detNumber", detNumber, "detNumber[nStep]/I");
+  evtTree->Branch("detEnergy", detEnergy, "detEnergy[nStep]/D");
 }
 
 void MocotoAnalysisManager::BeginOfRun()
@@ -78,8 +81,6 @@ void MocotoAnalysisManager::EndOfRun()
 
 void MocotoAnalysisManager::BeginOfEvent()
 {
-  nCpmpt        = 0;
-  nRayle        = 0;
   nScattering   = 0;
   m_ifFill      = false;
 }
@@ -90,16 +91,16 @@ void MocotoAnalysisManager::EndOfEvent()
     evtTree->Fill();
 }
 
-void MocotoAnalysisManager::SetProcess(G4String name)
-{
-  if( name == "compt" ) nCpmpt++;
-  if( name == "Rayl"  ) nRayle++;
-  if( nCpmpt + nRayle ) nScattering = 1;
-}
-
 void MocotoAnalysisManager::SetPrimaryInfomation(Double_t m_energy, Double_t m_theta, Double_t m_phi)
 {
   primary.x = Float_t( m_energy );
   primary.y = Float_t( m_theta*180/3.141592);
   primary.z = Float_t( m_phi*180/3.141592);
+}
+
+void MocotoAnalysisManager::SetDepositInfo(Int_t ndet, Int_t* number, Double_t* energy)
+{
+  nStep = ndet;
+  detNumber = number;
+  detEnergy = energy;
 }

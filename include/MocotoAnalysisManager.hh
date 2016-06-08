@@ -68,19 +68,21 @@ class MocotoAnalysisManager
 
     void SetEventID(Int_t evtid) { m_evtID = evtid; }
     void SetifFill(bool i) { m_ifFill = i; }
-    void SetProcess(G4String name);
     void SetPrimaryInfomation(Double_t,Double_t,Double_t);
+    void SetNbScattering(Int_t i) { nScattering = i; }
+    void SetDepositInfo(Int_t,Int_t*,Double_t*);
 
   private:
     typedef struct { Float_t x,y,z; } VECTOR;
+    VECTOR   primary,position;
     TFile*   newFile;
     TTree*   evtTree;
     TString  filename;
     bool     m_ifFill;
     Int_t    m_evtID;
-    Int_t    nCpmpt;
-    Int_t    nRayle;
     Int_t    nScattering;
-    VECTOR   primary,position;
+    Int_t    nStep;
+    Int_t    *detNumber;
+    Double_t *detEnergy;
 };
 #endif
