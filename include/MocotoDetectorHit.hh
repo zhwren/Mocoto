@@ -47,12 +47,11 @@ class MocotoDetectorHit : public G4VHit
 
     inline void* operator new(size_t);
     inline void  operator delete(void*);
-
   public:
-    void ScatterCount(const G4VProcess*);
-    G4int GetScattering() { return m_Scatter; }
+    void SetN(G4int i) { m_i = i; }
+
   private:
-    G4int m_Scatter;
+    G4int m_i;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -38,18 +38,10 @@ G4Allocator<MocotoDetectorHit> MocotoDetectorHitAllocator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MocotoDetectorHit::MocotoDetectorHit() 
-{
-}
+{}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MocotoDetectorHit::~MocotoDetectorHit() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void MocotoDetectorHit::ScatterCount(const G4VProcess* aProcess)
-{
-  G4String pName = aProcess ? (aProcess->GetProcessName()) : "";
-  if( pName=="Rayl" || pName=="compt" )
-    m_Scatter++;
-}

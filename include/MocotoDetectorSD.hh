@@ -41,12 +41,12 @@
 class MocotoDetectorSD : public G4VSensitiveDetector
 {
   public:
-    MocotoDetectorSD(G4String);
+    MocotoDetectorSD(G4String name);
     ~MocotoDetectorSD();
 
-    void Initialize(G4HCofThisEvent*);
-    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
-    void EndOfEvent(G4HCofThisEvent*);
+    void Initialize(G4HCofThisEvent* HCE);
+    G4bool ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist);
+    void EndOfEvent(G4HCofThisEvent* HCE);
 
   private:
     MocotoDetectorHitCollection* MocotoCollection;

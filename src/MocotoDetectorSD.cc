@@ -63,23 +63,13 @@ void MocotoDetectorSD::Initialize(G4HCofThisEvent* HCE)
 
 G4bool MocotoDetectorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 {
-  G4String volName = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName();
-  const G4VProcess *aProcess = aStep->GetPostStepPoint()->GetProcessDefinedStep();
-  if( volName=="pTarget" || volName=="pWorld" )
-  {
-    MocotoDetectorHit* hit = new MocotoDetectorHit();
-    hit->ScatterCount( aProcess );
-    MocotoCollection->insert( hit );
-    return true;
-  }
+  MocotoDetectorHit* hit = new MocotoDetectorHit();
+  hit->SetN(1);
+  MocotoCollection->insert( hit );
   return false;
 }
 
 void MocotoDetectorSD::EndOfEvent(G4HCofThisEvent* HCE)
 {
-  G4int n_Scatter = 0;
-  G4int NbHits = MocotoCollection->entries();
-  
-  for(G4int i=0; i<NbHits; i++)
-    G4cout << (*MocotoCollection)[i]->GetScattering() << G4endl;
+  G4cout << MocotoCollection->entries() << G4endl;
 }
