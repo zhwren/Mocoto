@@ -41,7 +41,7 @@ MocotoDetectorHit::MocotoDetectorHit()
 {
   m_Edep = 0;
   m_DetNumber = 0;
-  m_ProcessName = "";
+  m_Scattering = 0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -50,7 +50,8 @@ MocotoDetectorHit::~MocotoDetectorHit() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MocotoDetectorHit::SetProcessName(G4String name)
+void MocotoDetectorHit::SetScattering(G4String name)
 {
-  m_ProcessName = name;
+  if( name=="Rayl" || name=="compt" )
+    m_Scattering = 1;
 }

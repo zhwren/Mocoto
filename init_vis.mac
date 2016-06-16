@@ -2,7 +2,7 @@
 /run/verbose 2
 
 /det/detector/Number 21
-/det/collimator/Number 21
+/det/collimator/Number 0
 
 /det/target/position 0 0 0 mm
 /det/target/diameter 20 cm

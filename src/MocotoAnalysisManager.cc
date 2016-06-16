@@ -81,6 +81,7 @@ void MocotoAnalysisManager::EndOfRun()
 
 void MocotoAnalysisManager::BeginOfEvent()
 {
+  nStep         = 0;
   nScattering   = 0;
   m_ifFill      = false;
 }
@@ -88,7 +89,9 @@ void MocotoAnalysisManager::BeginOfEvent()
 void MocotoAnalysisManager::EndOfEvent()
 {
   if( m_ifFill )
+  {
     evtTree->Fill();
+  }
 }
 
 void MocotoAnalysisManager::SetPrimaryInfomation(Double_t m_energy, Double_t m_theta, Double_t m_phi)
@@ -98,9 +101,13 @@ void MocotoAnalysisManager::SetPrimaryInfomation(Double_t m_energy, Double_t m_t
   primary.z = Float_t( m_phi*180/3.141592);
 }
 
-void MocotoAnalysisManager::SetDepositInfo(Int_t ndet, Int_t* number, Double_t* energy)
+void MocotoAnalysisManager::SetDepositInfo(map<Int_t,Double_t> edep)
 {
-  nStep = ndet;
-  detNumber = number;
-  detEnergy = energy;
+  map<Int_t,Double_t>::iterator it;
+  for(it=edep.begin(); it!=edep.end(); it++)
+  {
+    detNumber[nStep] = it->first;
+    detEnergy[nStep] = it->second;
+    nStep++;
+  }
 }

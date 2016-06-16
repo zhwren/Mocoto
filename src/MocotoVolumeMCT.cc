@@ -41,7 +41,7 @@ MocotoVolumeMCT::MocotoVolumeMCT()
   :MocotoVolume()
 {
   ModuleSizeX = 1.7*mm;
-  ModuleSizeY = 25.614*mm;
+  ModuleSizeY = 25.784*mm;
   ModuleSizeZ = 33.225*mm;
   ModuleRadius = 440*mm + ModuleSizeX/2;
   CollimatorSizeX = 12.*mm;
