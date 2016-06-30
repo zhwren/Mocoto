@@ -46,6 +46,7 @@ class MocotoVolumeTarget : public MocotoVolume
     G4VPhysicalVolume* GetPhantomVolume(G4LogicalVolume*,G4Transform3D);
     G4VPhysicalVolume* GetDiffSizeOfTarget(G4int,G4LogicalVolume*);
     G4VPhysicalVolume* GetTubsTarget(G4int,G4int,G4LogicalVolume*);
+    G4VPhysicalVolume* Get2KindsOfMaterialTarget(G4LogicalVolume*);
 
   private:
     G4VSolid*          solidHolder;

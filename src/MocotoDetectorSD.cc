@@ -93,10 +93,10 @@ G4bool MocotoDetectorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     G4int col = fTrack->GetTouchable()->GetCopyNumber(0);
     G4int row = fTrack->GetTouchable()->GetCopyNumber(1);
     G4int det = fTrack->GetTouchable()->GetCopyNumber(2);
-    if( row!=8 ) return false;
+    //if( row!=8 ) return false;
     MocotoDetectorHit* hit = new MocotoDetectorHit();
     hit->SetEdep( edep );
-    hit->SetDetNumber(det*24+col);
+    hit->SetDetNumber(det*24+col+row*504);
     MocotoCollection->insert( hit );
   }
   return false;

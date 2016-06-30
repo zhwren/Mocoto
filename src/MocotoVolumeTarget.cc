@@ -103,3 +103,32 @@ G4VPhysicalVolume* MocotoVolumeTarget::GetTubsTarget(G4int rMin, G4int rMax, G4L
 
   return physiTarget;
 }
+
+G4VPhysicalVolume* MocotoVolumeTarget::Get2KindsOfMaterialTarget(G4LogicalVolume* motherVolume)
+{
+  solidTarget = new G4Tubs("sTarget", 0, 10*cm, 10*cm, 0.*deg, 360.*deg);
+  logicTarget = new G4LogicalVolume(solidTarget, matWater, "lTarget");
+  physiTarget = new G4PVPlacement(0,
+                                  G4ThreeVector(0,0,0),
+				  logicTarget,
+				  "pTarget",
+				  motherVolume,
+				  false,
+				  0);
+
+  G4VSolid* solidMatter = new G4Tubs("sTarget", 0, 10*cm, 5*cm, 0.*deg, 360.*deg);
+  G4LogicalVolume* logicMatter = new G4LogicalVolume(solidMatter, matAir, "lTarget");
+  G4VPhysicalVolume* physiMatter = new G4PVPlacement(0,
+                                                     G4ThreeVector(0,0,5*cm),
+						     logicMatter,
+						     "pTarget",
+						     logicTarget,
+						     false,
+						     0);
+  G4VisAttributes* VisAtt = new G4VisAttributes( G4Colour(0,0,0.5) );
+  logicTarget->SetVisAttributes( VisAtt );
+  VisAtt = new G4VisAttributes(G4Colour(1.,0.,0.));
+  VisAtt->SetForceSolid( true );
+  logicMatter->SetVisAttributes( VisAtt );
+  return physiTarget;
+}
