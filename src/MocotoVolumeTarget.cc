@@ -117,7 +117,7 @@ G4VPhysicalVolume* MocotoVolumeTarget::Get2KindsOfMaterialTarget(G4LogicalVolume
 				  0);
 
   G4VSolid* solidMatter = new G4Tubs("sTarget", 0, 10*cm, 5*cm, 0.*deg, 360.*deg);
-  G4LogicalVolume* logicMatter = new G4LogicalVolume(solidMatter, matAir, "lTarget");
+  G4LogicalVolume* logicMatter = new G4LogicalVolume(solidMatter, matMuscle, "lTarget");
   G4VPhysicalVolume* physiMatter = new G4PVPlacement(0,
                                                      G4ThreeVector(0,0,5*cm),
 						     logicMatter,
